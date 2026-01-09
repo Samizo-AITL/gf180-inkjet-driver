@@ -102,6 +102,51 @@ for any commercial application.
 
 ---
 
+## ✅ Result
+
+This project **did not fail**.  
+It successfully clarified the **practical boundary** of applying open digital flows to **GF180MCU-based mixed-signal / high-voltage designs**.
+
+### Confirmed Results
+
+- **GF180MCU Open PDK is not compatible with OpenLane’s OpenPDK-based flow**
+  - Required files such as:
+    ```
+    libs.tech/openlane/config.tcl
+    ```
+    do not exist in the GF180MCU PDK.
+  - As a result, **automated synthesis → P&R → GDS generation using OpenLane is not feasible**.
+
+- **No GDS was generated in this project**
+  - The OpenLane flow stops at the preparation stage due to PDK incompatibility.
+  - This repository does not contain generated GDS data.
+
+### Technical Conclusions
+
+- Inkjet printhead drivers inherently require:
+  - High-voltage devices
+  - Mixed-signal integration
+  - Layout-driven design decisions
+- These characteristics place the design **outside the effective scope of fully automated digital P&R flows**.
+
+- **GF180MCU is suitable for:**
+  - Manual or semi-manual layout exploration
+  - High-voltage and mixed-signal educational studies
+  - Architecture and layout strategy research
+
+- **GF180MCU is not suitable for:**
+  - OpenLane-based automated digital GDS generation
+
+### Outcome
+
+This exploration successfully established that:
+
+> **GF180MCU-based inkjet driver ICs require a layout-centric, manual design approach,  
+and cannot rely on OpenLane-style automated digital flows.**
+
+This conclusion itself is the primary technical outcome of the project.
+
+---
 
 ## 👤 Author
 
