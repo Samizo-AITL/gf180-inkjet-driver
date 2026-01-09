@@ -93,9 +93,12 @@ This repository serves as a sandbox for that purpose.
 
 ## Status
 
-- 🚧 Early exploration phase
-- 📐 Layout-centric learning
-- 🧪 Experiments may be incomplete or schematic-only
+- ✅ **Flow feasibility evaluation completed**
+- 📐 **Manual layout exploration phase (HV-focused)**
+- 🧩 **GDS targets identified (device- and structure-level)**
+
+This project has completed the evaluation of automated digital design flows
+and is transitioning to **layout-centric exploration** using GF180MCU.
 
 ---
 
@@ -107,49 +110,64 @@ for any commercial application.
 
 ---
 
-## ✅ Result
+## ✅ Results & Findings
 
-This project **did not fail**.  
-It successfully clarified the **practical boundary** of applying open digital flows to **GF180MCU-based mixed-signal / high-voltage designs**.
+This project **did not fail**.
+It successfully identified the **practical design boundary** between
+automated digital flows and **manual mixed-signal / high-voltage IC design**
+using the GF180MCU open PDK.
 
-### Confirmed Results
+### 1. Automated Digital Flow Evaluation
 
 - **GF180MCU Open PDK is not compatible with OpenLane’s OpenPDK-based flow**
-  - Required files such as:
+  - Required OpenLane-specific files such as:
     ```
     libs.tech/openlane/config.tcl
     ```
-    do not exist in the GF180MCU PDK.
-  - As a result, **automated synthesis → P&R → GDS generation using OpenLane is not feasible**.
+    are not provided in the GF180MCU PDK.
+  - As a result, **fully automated synthesis → P&R → GDS generation using OpenLane
+    is not a viable approach** for this process.
 
-- **No GDS was generated in this project**
-  - The OpenLane flow stops at the preparation stage due to PDK incompatibility.
-  - This repository does not contain generated GDS data.
+- **No automated digital GDS was generated**
+  - This is a **deliberate and confirmed outcome** of flow compatibility evaluation,
+    not a failed implementation.
 
-### Technical Conclusions
+### 2. Architectural Implications for Inkjet Driver ICs
 
-- Inkjet printhead drivers inherently require:
-  - High-voltage devices
-  - Mixed-signal integration
-  - Layout-driven design decisions
-- These characteristics place the design **outside the effective scope of fully automated digital P&R flows**.
+Inkjet printhead drivers inherently require:
 
-- **GF180MCU is suitable for:**
-  - Manual or semi-manual layout exploration
-  - High-voltage and mixed-signal educational studies
-  - Architecture and layout strategy research
+- High-voltage device utilization
+- Mixed-signal integration (logic + HV analog)
+- Strong layout-driven decision making
 
-- **GF180MCU is not suitable for:**
-  - OpenLane-based automated digital GDS generation
+These characteristics place such designs **outside the effective scope of
+fully automated digital P&R flows**.
+
+### 3. Design Domains Where GF180MCU Is Effective
+
+GF180MCU is well suited for:
+
+- **Manual or semi-manual layout exploration**
+- **High-voltage device and isolation structure studies**
+- **Mixed-signal floorplanning and partitioning**
+- **Educational and architectural research**
+
+Typical **GDS-worthy targets** in this domain include:
+
+- High-voltage MOS device layout cells
+- Guard ring and substrate isolation structures
+- Single-channel inkjet driver layout blocks
+- Pad and high-current routing studies
 
 ### Outcome
 
-This exploration successfully established that:
+This exploration establishes that:
 
-> **GF180MCU-based inkjet driver ICs require a layout-centric, manual design approach,  
-and cannot rely on OpenLane-style automated digital flows.**
+> **GF180MCU-based inkjet driver ICs require a layout-centric, manual design approach  
+> and cannot rely on OpenLane-style automated digital flows.**
 
-This conclusion itself is the primary technical outcome of the project.
+This conclusion defines a **clear and actionable design direction** for
+future work, rather than a limitation.
 
 ---
 
