@@ -1,6 +1,6 @@
 ---
 title: "GF180 HV NMOS Layout Study"
-description: "Single high-voltage NMOS layout with guard ring using GF180MCU Open PDK"
+description: "Single high-voltage NMOS layout study with guard ring using GF180MCU Open PDK"
 ---
 
 # GF180 HV NMOS Layout Study (with Guard Ring)
@@ -12,6 +12,12 @@ The purpose of this layout is **not functional verification**,
 but **GDS-level understanding** of high-voltage device structures,
 guard rings, and isolation strategies required for
 inkjet printhead driver ICs.
+
+> **Positioning Note**  
+> This layout represents an early, manually created HV NMOS GDS reference.
+> It serves as a *baseline structural study* and precedes later
+> **generator-based HV unit layouts (HV_SW_UNIT)** used for
+> array and pitch-constrained exploration.
 
 ---
 
@@ -26,7 +32,8 @@ The objectives of this layout study are:
   for future mixed-signal / inkjet driver layouts
 
 This layout serves as the **first concrete GDS artifact**
-in the gf180-inkjet-driver exploration.
+in the gf180-inkjet-driver exploration and acts as a
+**reference point for later generator-based HV unit layouts**.
 
 ---
 
@@ -98,6 +105,8 @@ This layout intentionally excludes:
 - Functional driver circuitry
 - Level shifters or logic interfaces
 - Pad structures or ESD networks
+- Generator-based or array-oriented layouts  
+  (handled separately in **HV_SW_UNIT**)
 - Any claim of manufacturability
 
 Its sole role is to function as a **minimal, inspectable GDS unit**.
