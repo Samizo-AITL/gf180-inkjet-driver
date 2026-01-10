@@ -49,6 +49,27 @@ flowchart LR
 
 ---
 
+## Representative GDS Artifact
+
+The following image shows a **representative HV switch unit GDS**
+generated during this exploration.
+
+It demonstrates:
+- DNWELL enclosure
+- Continuous P+ guard ring
+- Central HV device structure
+- Explicit D / G / S / B pin exposure
+
+<img
+  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/02_hv_sw_unit_gds.png"
+  alt="HV_SW_UNIT – DNWELL and Guard Ring GDS"
+  width="80%"
+/>
+
+This GDS serves as a **visual anchor** for the documents listed below.
+
+---
+
 ## Document Index (GDS-Oriented)
 
 Each document in this directory is written with a **clear downstream GDS target**
