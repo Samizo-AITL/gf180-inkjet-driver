@@ -130,6 +130,25 @@ fully automated digital P&R flows**.
 
 ---
 
+### Representative GDS Artifact
+
+The following image shows a **representative high-voltage switch unit GDS**
+generated during this exploration.
+
+It demonstrates:
+- DNWELL isolation
+- Continuous P+ guard ring
+- Central HV device structure
+- Explicit D / G / S / B pin exposure
+
+<img
+  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/02_hv_sw_unit_gds.png"
+  alt="HV_SW_UNIT – DNWELL and Guard Ring GDS"
+  width="80%"
+/>
+
+---
+
 ## 📍 Where to Go Next
 
 To dive into **layout-driven exploration**, start here:
