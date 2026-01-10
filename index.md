@@ -191,13 +191,13 @@ future work, rather than a limitation.
 To dive deeper into the actual **layout-driven exploration**, start here:
 
 - 📐 **Architecture & layout rationale**  
-  👉 `docs/architecture.md`
+  👉 [Architecture](./docs/architecture.md)
 
 - ⚡ **High-voltage MOS devices and constraints**  
-  👉 `docs/hv-devices.md`
+  👉 [HV Devices](./docs/hv-devices.md)
 
 - 🧱 **Layout notes and guard ring considerations**  
-  👉 `docs/layout-notes.md`
+  👉 [Layout Notes](./docs/layout-notes.md)
 
 These documents directly support **manual GDS generation**
 and device-level layout experiments using GF180MCU.
