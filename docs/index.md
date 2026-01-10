@@ -17,6 +17,14 @@ layout justification**, rather than as a complete IC specification.
 
 ---
 
+## 🔗 Links
+
+| Language | GitHub Pages 🌐 | GitHub 💻 |
+|----------|----------------|-----------|
+| 🇺🇸 English | [![GitHub Pages EN](https://img.shields.io/badge/GitHub%20Pages-English-brightgreen?logo=github)](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/) | [![GitHub Repo EN](https://img.shields.io/badge/GitHub-English-blue?logo=github)](https://github.com/Samizo-AITL/gf180-inkjet-driver/tree/main/docs) |
+
+---
+
 ## 🗺 Layout Map (GDS-Oriented Overview)
 
 ```mermaid
@@ -43,14 +51,6 @@ flowchart LR
   D --> D2[Manual HV layout exploration]
   D --> D3[Next: single HV MOS → switch cell]
 ```
-
----
-
-## 🔗 Links
-
-| Language | GitHub Pages 🌐 | GitHub 💻 |
-|----------|----------------|-----------|
-| 🇺🇸 English | [![GitHub Pages EN](https://img.shields.io/badge/GitHub%20Pages-English-brightgreen?logo=github)](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/) | [![GitHub Repo EN](https://img.shields.io/badge/GitHub-English-blue?logo=github)](https://github.com/Samizo-AITL/gf180-inkjet-driver/tree/main/docs) |
 
 ---
 
