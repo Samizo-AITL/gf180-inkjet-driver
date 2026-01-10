@@ -105,3 +105,22 @@ This documentation is provided **for educational and exploratory purposes only**
 
 No guarantees are made regarding manufacturability, electrical performance,
 reliability, or suitability for any commercial application.
+
+---
+
+## Layout Design Environment
+
+<img
+  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/01_gf180_inkjet_env_klayout.png"
+  alt="GF180 Inkjet Driver – KLayout Environment"
+  width="80%"
+/>
+
+---
+
+## Next Step
+
+- Single **HV MOS device layout** generation using KLayout
+- Guard ring and isolation structure comparison
+- Transition toward **minimum viable inkjet driver cell**
+
