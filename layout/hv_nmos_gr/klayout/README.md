@@ -1,130 +1,152 @@
 ---
-title: "HV_SW_UNIT – KLayout Generator"
-description: "Parametric KLayout (pya) script for GF180 HV nLDMOS switch unit with DNWELL and guard ring"
+title: "HV_SW_UNIT – KLayout Generator & GDS Reference"
+description: "Parametric KLayout (pya) generator and committed GDS reference for GF180 HV switch unit with DNWELL and guard ring"
 ---
 
-# HV_SW_UNIT – KLayout Generator
+# HV_SW_UNIT – KLayout Generator & GDS Reference
 
-This directory contains a **KLayout (pya) script** that generates a
-**minimum viable high-voltage switch unit (HV_SW_UNIT)** for
-GF180MCU-based inkjet driver exploration.
+This directory provides a **minimum viable high-voltage switch unit (HV_SW_UNIT)**
+for **GF180MCU-based inkjet driver exploration**.
 
-The layout is **GDS-oriented and layout-first**, focusing on:
-- DNWELL isolation
+It includes:
+
+- A **parametric KLayout (pya) generator script**
+- A **committed, inspectable GDS reference**
+- Documentation aligned to layout-first HV design
+
+This work is **GDS-oriented and layout-first**, prioritizing:
+- DNWELL isolation strategy
 - Guard ring continuity
-- Replication-friendly unit structure
+- Replication-ready unit geometry
 
-This is **not** a complete IC or qualified device layout.
-It is a **layout exploration scaffold** intended for educational and PoC use.
+This is **not** a qualified device or production-ready IP.
 
 ---
 
-## Contents
+## Directory Structure
 
 ```
-klayout/
-├─ hv_sw_unit.py     # Main KLayout (pya) generator script
-└─ README.md         # This document
-```
-
-Generated files (example):
-```
-gds/
-└─ hv_sw_unit.gds    # Generated GDS (not committed)
+layout/hv_nmos_gr/
+├─ klayout/
+│  ├─ hv_sw_unit.py     # KLayout (pya) generator script
+│  └─ README.md
+├─ gds/
+│  ├─ hv_sw_unit.gds    # Generated and committed GDS reference
+│  └─ .gitkeep
 ```
 
 ---
 
-## What This Script Does
+## What This Generator Does
 
-- Instantiates a **PDK-provided HV nLDMOS cell** (10 V class)
-- Automatically generates:
-  - DNWELL enclosure
-  - Guard ring (P+ diffusion)
-  - Basic pin markers (D / G / S / B)
-- Produces a **tileable HV switch unit skeleton**
+The `hv_sw_unit.py` script generates a **self-contained HV switch unit skeleton**
+with the following features:
 
-Electrical optimization is **explicitly out of scope**.
+- DNWELL enclosure
+- P+ guard ring (continuous ring geometry)
+- Central HV device placeholder
+- Explicit pin markers (D / G / S / B)
+
+The default implementation uses **PDK-independent placeholder geometry**
+to ensure that:
+
+- The script runs without requiring the GF180 PDK
+- The generated GDS is always inspectable
+
+A **PDK-provided HV nLDMOS cell** can be substituted later
+as a drop-in replacement.
 
 ---
 
-## Requirements
+## Generated GDS Reference
 
-- **KLayout**
-- **GF180MCU open PDK** loaded into KLayout
-- Access to a **HV nLDMOS PDK cell** (example: 10 V nLDMOS)
+- **File**: `gds/hv_sw_unit.gds`
+- **Cell name**: `HV_SW_UNIT`
+- **Status**: Committed, inspectable reference layout
+
+This GDS serves as:
+
+- A visual reference for HV isolation overhead
+- A concrete example of DNWELL + guard ring interaction
+- A baseline unit for array tiling and pitch studies
+
+No DRC, LVS, or electrical guarantees are implied.
+
+---
+
+## Requirements (for Script Execution)
+
+- **KLayout** (tested with 0.30.x)
+- Python macro support enabled
+
+Optional:
+- **GF180MCU Open PDK** (only required when instantiating real HV devices)
 
 ---
 
 ## Usage
 
 1. Open **KLayout**
-2. Ensure the **GF180 PDK** is loaded
-3. Edit `hv_sw_unit.py` and set the correct PDK cell name:
-
-```python
-lib_name  = "gf180mcu"
-cell_name = "nldmos_10v"  # replace with actual PDK cell name
-```
-
-4. Run the script:
+2. Open **Macro Development**
+3. Load and run:
 
 ```
-Tools → Run Script → hv_sw_unit.py
+klayout/hv_sw_unit.py
 ```
 
-5. The following file will be generated:
+4. The following file will be generated:
 
 ```
-hv_sw_unit.gds
+C:\Users\<user>\KLayout\hv_sw_unit.gds
 ```
 
 ---
 
 ## Design Philosophy
 
-- **Layout-first**
-- Conservative spacing and isolation
-- Explicit avoidance of density optimization
-- Structures chosen for:
-  - Visual inspection
+- Layout-first, not schematic-driven
+- Conservative spacing and explicit isolation
+- No density or performance optimization
+- Intended for:
+  - Structural understanding
   - DRC iteration
-  - Replication into multi-channel arrays
-
-All decisions are driven by **downstream GDS feasibility**.
+  - Replication into multi-channel HV arrays
 
 ---
 
 ## Limitations
 
 - No schematic or LVS intent
-- No guaranteed electrical performance
-- Device physics fully delegated to **PDK-defined cells**
-- Dimensions are **PoC-safe defaults**, not optimized values
+- No electrical performance claims
+- Device physics delegated to future PDK substitution
+- Dimensions are PoC-safe defaults only
 
 ---
 
-## Relation to Project Docs
+## Relation to Project Documentation
 
-This script directly supports the following documents:
+This HV_SW_UNIT directly supports:
 
 - `DesignRules_HV.md`
 - `HV_SW_UNIT_Definition.md`
 - `HV_SW_UNIT_Floorplan.md`
 - `HV_SW_UNIT_Layout_Checklist.md`
 
+These documents explain **why** this structure exists;
+the GDS shows **what it looks like in reality**.
+
 ---
 
 ## Disclaimer
 
-For **educational and exploratory use only**.  
-No guarantees of manufacturability, reliability, or commercial suitability.
+Provided **for educational and exploratory purposes only**.  
+No guarantees of manufacturability or commercial suitability.
 
 ---
 
 ## Next Steps
 
-- Pitch-constrained version (≈63.5 µm @ 400 dpi)
-- Automated spacing rules tied to DRC feedback
-- Multi-unit tiling experiments
+- Pitch-constrained variant (≈63.5 µm @ 400 dpi)
+- Array tiling experiments
+- Guard ring sharing vs. isolation trade-offs
 - PEX → SPICE → V–I (Id–Vd / Id–Vg) sanity checks
