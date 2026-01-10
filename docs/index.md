@@ -31,6 +31,8 @@ Each document in this directory is written with a **clear downstream GDS target*
 in mind. Conceptual discussion is intentionally limited to what directly
 influences layout decisions.
 
+### Core Architecture Documents
+
 - **architecture.md**  
   System-level partitioning and block definition for
   **manual layout boundaries**, with emphasis on:
@@ -69,6 +71,61 @@ influences layout decisions.
   - Device-level GDS milestones
   - Isolation and pad structure studies
   - Incremental expansion toward multi-channel layouts
+
+---
+
+## High-Voltage Layout Rule Set (Inkjet-Focused)
+
+The following documents define a **complete, layout-first rule chain**
+for high-voltage MOS usage in inkjet driver ICs.
+They are intended to be read **in order**, and together form the
+design backbone for manual GDS generation.
+
+- **DesignRules_HV.md**  
+  Top-level **HV layout design rules** defining:
+  - Power domain separation (LV / IO / HV)
+  - Allowed device classes (10 V LDMOS)
+  - Guard ring and DNWELL policies
+  - Conservative layout philosophy for PoC designs
+
+- **HV_SW_UNIT_Definition.md**  
+  Definition of the **HV_SW_UNIT**, the minimum scalable
+  high-voltage switch cell:
+  - Unit-based current scaling concept
+  - Replication-first design strategy
+  - Explicit exclusion of density optimization in v0.x
+
+- **HV_SW_UNIT_Floorplan.md**  
+  Physical **floorplan structure** of the HV_SW_UNIT, including:
+  - DNWELL enclosure strategy
+  - Guard ring placement and continuity
+  - Source / drain / gate orientation rules
+  - Tiling behavior expectations
+
+- **HV_SW_UNIT_LW_Proposal.md**  
+  Tentative **channel length (L) and width (W)** proposal for
+  initial PoC layouts:
+  - Long-channel, conservative sizing
+  - Unit-width definition
+  - Finger-based implementation guidance
+
+- **HV_SW_UNIT_Layout_Checklist.md**  
+  A **step-by-step checklist** for actual layout work:
+  - What to place first (and what not to)
+  - Common failure modes in HV layouts
+  - Pre-DRC and post-DRC sanity checks
+
+- **HV_SW_UNIT_IV_Expectations.md**  
+  Pre-SPICE **V–I (Id–Vd / Id–Vg) expectation framework**:
+  - Shape-based sanity checks
+  - Early detection of layout or connectivity errors
+  - Replication consistency expectations
+
+- **HV_SW_UNIT_400dpi_Pitch_Analysis.md**  
+  Feasibility analysis toward **400 dpi nozzle pitch (~63.5 µm)**:
+  - Reverse pitch calculation
+  - Identification of structural bottlenecks
+  - Architectural implications beyond v0.x rules
 
 ---
 
@@ -123,4 +180,3 @@ reliability, or suitability for any commercial application.
 - Single **HV MOS device layout** generation using KLayout
 - Guard ring and isolation structure comparison
 - Transition toward **minimum viable inkjet driver cell**
-
