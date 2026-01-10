@@ -20,6 +20,35 @@ layout justification**, rather than as a complete IC specification.
 
 ---
 
+## 🗺 Layout Map (GDS-Oriented Overview)
+
+```mermaid
+flowchart LR
+  A[docs/ : GDS-oriented design notes] --> B[Core Architecture Docs]
+  A --> C[HV Layout Rule Chain]
+  A --> D[Status / Next Step]
+
+  B --> B1[architecture.md\nSystem partitioning / floorplanning]
+  B --> B2[hv-devices.md\nHV MOS options & layout constraints]
+  B --> B3[driver-topology.md\nLayout-feasible driver blocks]
+  B --> B4[layout-notes.md\nGuard ring / spacing / substrate]
+  B --> B5[roadmap.md\nPath toward actual GDS]
+
+  C --> C1[DesignRules_HV.md\nHV domain & isolation rules]
+  C --> C2[HV_SW_UNIT_Definition.md\nMinimum scalable HV cell]
+  C --> C3[HV_SW_UNIT_Floorplan.md\nDNWELL & GR continuity]
+  C --> C4[HV_SW_UNIT_LW_Proposal.md\nConservative L/W sizing]
+  C --> C5[HV_SW_UNIT_Layout_Checklist.md\nActual layout order]
+  C --> C6[HV_SW_UNIT_IV_Expectations.md\nV–I sanity checks]
+  C --> C7[HV_SW_UNIT_400dpi_Pitch_Analysis.md\n~63.5 µm pitch limit]
+
+  D --> D1[Digital flow feasibility: done]
+  D --> D2[Manual HV layout exploration]
+  D --> D3[Next: single HV MOS → switch cell]
+```
+
+---
+
 ## Document Index (GDS-Oriented)
 
 Each document in this directory is written with a **clear downstream GDS target**
