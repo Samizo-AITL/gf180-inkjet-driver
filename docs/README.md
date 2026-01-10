@@ -111,3 +111,11 @@ reliability, or suitability for any commercial application.
   width="80%"
 />
 
+---
+
+## Next Step
+
+- Single **HV MOS device layout** generation using KLayout
+- Guard ring and isolation structure comparison
+- Transition toward **minimum viable inkjet driver cell**
+
