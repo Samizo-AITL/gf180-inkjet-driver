@@ -20,6 +20,21 @@ with a focus on **high-voltage device layout** and **mixed-signal integration**.
 
 ---
 
+## 📘 Design Documentation
+
+The core technical documentation for this project lives under the **docs/**
+directory and is published via GitHub Pages.
+
+- 📂 **docs/** (design rationale, architecture, HV layout notes)  
+  👉 https://github.com/Samizo-AITL/gf180-inkjet-driver/tree/main/docs
+
+- 🌐 **GitHub Pages (rendered docs)**  
+  👉 https://samizo-aitl.github.io/gf180-inkjet-driver/docs/
+
+All layout- and GDS-oriented discussions are intentionally centralized there.
+
+---
+
 ## Overview
 
 This repository explores a **minimal inkjet printhead driver IC architecture**
@@ -171,6 +186,23 @@ future work, rather than a limitation.
 
 ---
 
+## 📍 Where to Go Next
+
+To dive deeper into the actual **layout-driven exploration**, start here:
+
+- 📐 **Architecture & layout rationale**  
+  👉 `docs/architecture.md`
+
+- ⚡ **High-voltage MOS devices and constraints**  
+  👉 `docs/hv-devices.md`
+
+- 🧱 **Layout notes and guard ring considerations**  
+  👉 `docs/layout-notes.md`
+
+These documents directly support **manual GDS generation**
+and device-level layout experiments using GF180MCU.
+
+---
 
 ## 👤 Author
 
