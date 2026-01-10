@@ -17,12 +17,10 @@ layout justification**, rather than as a complete IC specification.
 
 ---
 
----
-
 ## 🗺 Layout Map (GDS-Oriented Overview)
 
 ```mermaid
-flowchart TD
+flowchart LR
   A[docs/ : GDS-oriented design notes] --> B[Core Architecture Docs]
   A --> C[HV Layout Rule Chain]
   A --> D[Status / Next Step]
