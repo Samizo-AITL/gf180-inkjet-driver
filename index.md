@@ -78,21 +78,6 @@ educational reference.
 
 ---
 
-## Repository Structure (planned)
-
-```
-gf180-inkjet-driver/
-├── docs/        # Architecture notes, diagrams, design rationale
-├── schematics/  # Schematic-level explorations
-├── layout/      # Layout experiments (HV focus)
-├── sim/         # Basic simulation setups
-└── README.md
-```
-
-(Structure may evolve as the exploration progresses.)
-
----
-
 ## Motivation
 
 Inkjet printhead drivers sit at the intersection of:
@@ -117,14 +102,6 @@ and is transitioning to **layout-centric exploration** using GF180MCU.
 
 ---
 
-## Disclaimer
-
-This project is provided **for educational and exploratory purposes only**.
-No guarantees are made regarding manufacturability, reliability, or fitness
-for any commercial application.
-
----
-
 ## ✅ Results & Findings
 
 This project **did not fail**.
@@ -135,17 +112,8 @@ using the GF180MCU open PDK.
 ### 1. Automated Digital Flow Evaluation
 
 - **GF180MCU Open PDK is not compatible with OpenLane’s OpenPDK-based flow**
-  - Required OpenLane-specific files such as:
-    ```
-    libs.tech/openlane/config.tcl
-    ```
-    are not provided in the GF180MCU PDK.
-  - As a result, **fully automated synthesis → P&R → GDS generation using OpenLane
-    is not a viable approach** for this process.
-
-- **No automated digital GDS was generated**
-  - This is a **deliberate and confirmed outcome** of flow compatibility evaluation,
-    not a failed implementation.
+- Fully automated synthesis → P&R → GDS generation using OpenLane  
+  **is not a viable approach** for this process
 
 ### 2. Architectural Implications for Inkjet Driver ICs
 
@@ -158,49 +126,27 @@ Inkjet printhead drivers inherently require:
 These characteristics place such designs **outside the effective scope of
 fully automated digital P&R flows**.
 
-### 3. Design Domains Where GF180MCU Is Effective
+### 3. Domains Where GF180MCU Is Effective
 
-GF180MCU is well suited for:
-
-- **Manual or semi-manual layout exploration**
-- **High-voltage device and isolation structure studies**
-- **Mixed-signal floorplanning and partitioning**
-- **Educational and architectural research**
-
-Typical **GDS-worthy targets** in this domain include:
-
-- High-voltage MOS device layout cells
-- Guard ring and substrate isolation structures
-- Single-channel inkjet driver layout blocks
-- Pad and high-current routing studies
-
-### Outcome
-
-This exploration establishes that:
-
-> **GF180MCU-based inkjet driver ICs require a layout-centric, manual design approach  
-> and cannot rely on OpenLane-style automated digital flows.**
-
-This conclusion defines a **clear and actionable design direction** for
-future work, rather than a limitation.
+- Manual / semi-manual layout exploration
+- High-voltage device and isolation studies
+- Mixed-signal floorplanning
+- Educational and architectural research
 
 ---
 
 ## 📍 Where to Go Next
 
-To dive deeper into the actual **layout-driven exploration**, start here:
+To dive into **layout-driven exploration**, start here:
 
-- 📐 **Architecture & layout rationale**  
+- 📐 Architecture & layout rationale  
   👉 [Architecture](./docs/architecture.md)
 
-- ⚡ **High-voltage MOS devices and constraints**  
+- ⚡ High-voltage MOS devices and constraints  
   👉 [HV Devices](./docs/hv-devices.md)
 
-- 🧱 **Layout notes and guard ring considerations**  
+- 🧱 Layout notes and guard ring considerations  
   👉 [Layout Notes](./docs/layout-notes.md)
-
-These documents directly support **manual GDS generation**
-and device-level layout experiments using GF180MCU.
 
 ---
 
