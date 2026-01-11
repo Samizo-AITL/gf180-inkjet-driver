@@ -78,6 +78,56 @@ for the unit- and array-level documents listed below.
 
 ---
 
+## Array Layout Evolution (400 dpi Study)
+
+The following snapshots document the **stepwise evolution**
+of the HV_SW_UNIT array toward **400 dpi pitch (63.5 µm)**.
+Each image corresponds to a concrete layout decision
+and captures the moment where a design assumption
+was either validated or rejected.
+
+### Independent Unit Isolation (Baseline)
+
+<img
+  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/03_hv_unit_array_full_gds.png"
+  alt="HV_SW_UNIT Array – Independent DNWELL and Guard Ring"
+  width="80%"
+/>
+
+- DNWELL and guard ring are isolated per HV_SW_UNIT
+- Guard ring outer boundary dominates pitch
+- **400 dpi is clearly infeasible**
+
+---
+
+### Column-wise Guard Ring Sharing
+
+<img
+  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/04_hv_sw_unit_array_gr_shared_FIXED_gds.png"
+  alt="HV_SW_UNIT Array – Column-wise Guard Ring Sharing"
+  width="80%"
+/>
+
+- Guard ring redundancy reduced at array level
+- Pitch pressure partially relieved
+- Unit-level guard ring remnants still interfere
+
+---
+
+### Guard-Ring-Clean Shared Array (Final Check)
+
+<img
+  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/05_hv_sw_unit_array_gr_shared_clean_gds.png"
+  alt="HV_SW_UNIT Array – Guard Ring Clean Shared Configuration"
+  width="80%"
+/>
+
+- Unit-level guard rings completely removed
+- Guard ring no longer the dominant limiter
+- **DNWELL enclosure and spacing become decisive**
+
+---
+
 ## Document Index (GDS-Oriented)
 
 Each document in this directory is written with a **clear downstream GDS target**
@@ -96,10 +146,6 @@ influences layout decisions.
 - **hv-devices.md**  
   High-voltage MOS devices available in GF180MCU and their
   layout-related constraints.
-  This document directly supports:
-  - **Single-device GDS cell generation**
-  - Guard ring and substrate isolation experiments
-  - Device-level spacing and topology comparison
 
 - **driver-topology.md**  
   Minimal inkjet driver stage concepts focused on
@@ -107,9 +153,7 @@ influences layout decisions.
 
 - **layout-notes.md**  
   Practical layout observations derived from GF180MCU rules and
-  mixed-signal constraints, including:
-  - Guard ring placement and continuity
-  - Substrate noise awareness and mitigation
+  mixed-signal constraints.
 
 - **roadmap.md**  
   A stepwise exploration plan documenting the transition from
@@ -119,34 +163,17 @@ influences layout decisions.
 
 ## High-Voltage Layout Rule Set (Inkjet-Focused)
 
-The following documents define a **complete, layout-first rule chain**
-for high-voltage MOS usage in inkjet driver ICs.
-They are intended to be read **in order**.
-
-- **DesignRules_HV.md**  
-  HV domain separation, device classes, DNWELL and guard ring policy
-
-- **HV_SW_UNIT_Definition.md**  
-  Definition of the minimum scalable HV switch unit
-
-- **HV_SW_UNIT_Floorplan.md**  
-  DNWELL enclosure and guard ring continuity rules
-
-- **HV_SW_UNIT_LW_Proposal.md**  
-  Conservative channel length and width assumptions
-
-- **HV_SW_UNIT_Layout_Checklist.md**  
-  Practical checklist for manual HV layout execution
-
-- **HV_SW_UNIT_IV_Expectations.md**  
-  Pre-SPICE V–I (Id–Vd / Id–Vg) sanity expectations
-
-- **HV_SW_UNIT_400dpi_Pitch_Analysis.md**  
-  Feasibility study for **400 dpi nozzle pitch (~63.5 µm)**
+- **DesignRules_HV.md**
+- **HV_SW_UNIT_Definition.md**
+- **HV_SW_UNIT_Floorplan.md**
+- **HV_SW_UNIT_LW_Proposal.md**
+- **HV_SW_UNIT_Layout_Checklist.md**
+- **HV_SW_UNIT_IV_Expectations.md**
+- **HV_SW_UNIT_400dpi_Pitch_Analysis.md**
 
 Together, these documents capture both
-**feasible layout structures** and
-**architectural limits identified at the GDS level**.
+**feasible layout structures**
+and **architectural limits identified at the GDS level**.
 
 ---
 
