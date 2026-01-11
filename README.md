@@ -20,11 +20,11 @@ with a focus on **high-voltage device layout** and **mixed-signal integration**.
 The core technical documentation for this project lives under the **docs/**
 directory and is published via GitHub Pages.
 
-- 📂 **docs/** (design rationale, architecture, HV layout notes)  
-  👉 [GitHub Repository – docs/](https://github.com/Samizo-AITL/gf180-inkjet-driver/tree/main/docs)
-
 - 🌐 **GitHub Pages (rendered docs)**  
   👉 [Design Documentation (GitHub Pages)](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/)
+
+- 📂 **docs/** (design rationale, architecture, HV layout notes)  
+  👉 [GitHub Repository – docs/](https://github.com/Samizo-AITL/gf180-inkjet-driver/tree/main/docs)
 
 All layout- and GDS-oriented discussions are intentionally centralized there.
 
