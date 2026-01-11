@@ -35,9 +35,11 @@ It records **what was done, what was observed, and what was decided** in a layou
 ## Global Objectives
 
 - Establish a **physically valid HV_SW_UNIT layout**
-- Confirm **DRC-safe structure** under GF180 rules
 - Identify **layout-driven constraints** invisible at schematic level
 - Accumulate reusable layout patterns and check items for future iterations
+
+> Note: Formal DRC closure under GF180 is **not a requirement** in this phase due to the
+> absence of an official KLayout DRC deck in the current environment.
 
 ---
 
@@ -65,9 +67,10 @@ Status meaning:
 - Done: concluded with documented outcomes
 - Parked: intentionally paused (reason required)
 
-| Run ID | Date | Target | Description | Status | DRC | LVS | Artifacts | Notes |
-|------:|------|--------|-------------|--------|-----|-----|----------|------|
-| 001 |  | HV_SW_UNIT | Initial layout trial | Running |  |  |  | Layout started |
+| Run ID | Date       | Target      | Description                                                   | Status | DRC            | LVS            | Artifacts       | Notes |
+|------:|------------|-------------|---------------------------------------------------------------|--------|----------------|----------------|-----------------|-------|
+| 001   | 2026-01-12 | HV_SW_UNIT  | Probe layout to expose dominant HV physical constraints        | Done   | NOT PERFORMED* | NOT PERFORMED  | py / gds / png  | *Official GF180 KLayout DRC not available |
+| 002   | 2026-01-12 | HV_SW_UNIT  | Guard-ring vs pitch dominance split (manual-rule driven)      | Planned| NOT PERFORMED  | NOT PERFORMED  | (TBD)           | Single-knob experiment |
 
 ---
 
@@ -75,12 +78,15 @@ Status meaning:
 
 ---
 
+## Run 001
+
 ### 1) Identification
 - **Run ID:** 001
 - **Date:** 2026-01-12
 - **Designer:** Shinichi Mitsumizo
-- **Tool:** KLayout 0.29.x (Windows)
-- **PDK / Rule Deck version:** GF180MCU Open PDK (HV ruleset, exact revision unknown)
+- **Tool:** KLayout 0.30.x (Windows)
+- **PDK / Rule Deck version:** GF180MCU Open PDK  
+  (No official KLayout Technology / DRC deck available in this environment)
 
 ---
 
@@ -90,71 +96,122 @@ Status meaning:
 - **Nominal Current I (A):** Not specified (physical constraints prioritized)
 - **Target Pitch (µm):** 20 µm (initial hypothesis, expected to be violated)
 - **Array Direction (X / Y):** X
-- **Guard Ring Structure:** Yes (continuous P+ guard, shared)
+- **Guard Ring Structure:** Yes (continuous P+ guard, per-cell)
 - **Power Strategy (rails / isolation / sharing):**
   - Source: Shared across array
   - Drain: Individually routed per cell
-  - Bulk: Fixed via guard ring
+  - Bulk: Fixed via P+ guard ring
 
 ---
 
 ### 3) Verification Status
-- **DRC:** NOT CHECKED
-  - Main violations (if FAIL): N/A (DRC not executed yet)
-- **LVS:** NOT PERFORMED
-  - Notes: Layout-only exploratory run
+- **DRC:** NOT PERFORMED  
+  - Reason: Official GF180 KLayout DRC deck (`tech.lyt`, `*.drc`) is not distributed
+    with `gf180mcu-pdk` and is not available via KLayout package repositories.
+  - Substitution: Manual HV constraint probing via aggressive geometry,
+    visual inspection, and ruler-based spacing review.
+- **LVS:** NOT PERFORMED  
+  - Notes: Layout-only exploratory run; no schematic reference.
 - **Other checks:**
   - Manual visual sanity check completed (layer intent confirmed)
-  - HV spacing not yet evaluated by rule deck
+  - GDS export verified and reproducible
 
 ---
 
 ### 4) Observations
-- **Critical layout constraints discovered:**
-  - None from rule checking at this stage (DRC pending)
-- **Unexpected rule interactions:**
-  - N/A
+- **Critical layout constraints discovered (manual, rule-agnostic):**
+  - **P+ guard ring outer boundary dominates cell footprint**, even for a minimal
+    single-device probe.
+  - **Poly gate over-extension** immediately interacts with perimeter structures
+    and is likely to dominate achievable pitch in dense arrays.
+  - **Metal1 edge stubs** create early spacing hotspots at cell boundaries,
+    making naive tiling unsafe.
+- **Unexpected interactions:**
+  - Tight guard margin combined with aggressive poly extension causes
+    perimeter congestion before any real routing strategy is introduced.
 - **Area-dominating structures:**
-  - P+ guard ring visibly dominates cell outer boundary
-  - Poly gate extension intentionally aggressive for HV probing
+  - Continuous P+ guard ring is the single largest mandatory structure.
 - **Repeatability / tiling issues:**
-  - Single-cell probe only; array tiling not evaluated in this Run
+  - Edge protrusions (metal stubs) are not tiling-safe without explicit
+    inter-cell keepout definitions.
 
 ---
 
 ### 5) Decisions
 - **Accepted compromises:**
-  - Intentionally undersized guard spacing to provoke HV DRC violations
-  - Oversimplified source/drain and metal geometry
+  - Keep Run 001 geometry intentionally “bad” to surface dominant physical drivers.
 - **Rejected options:**
-  - Immediate DRC-clean optimization (deferred)
+  - Attempting to port or reconstruct a non-existent GF180 KLayout DRC deck
+    for this exploratory phase.
 - **Rationale:**
-  - Primary goal of Run 001 is identification of dominant HV physical constraints,
-    not DRC closure
+  - The purpose of Run 001 is constraint discovery, not rule closure.
+    Manual, layout-first insight is sufficient and more efficient at this stage.
 
 ---
 
 ### 6) Conclusion
-- **Structurally acceptable as HV_SW_UNIT:** Not evaluated (DRC pending)
-- **Arrayable without modification:** Not evaluated
+- **Structurally acceptable as HV_SW_UNIT:** Not concluded (no formal DRC)
+- **Arrayable without modification:** No
 - **Recommended next action:**
-  - Execute GF180 HV DRC and identify dominant violation category
-  - Decide whether next step is:
-    - Run 001 continuation (minor geometry tuning), or
-    - Run 002 start (guard / pitch / gate strategy change)
+  - Start **Run 002** with a single controlled change focused on guard strategy,
+    while keeping all other parameters identical for comparison.
 
 ---
 
 ### 7) Artifacts
+- **Python macro:**
+  - `layout/hv_nmos_gr/klayout/hv_sw_unit_run001_probe.py`
 - **GDS filename:**
   - `layout/hv_nmos_gr/gds/hv_sw_unit_run001_probe.gds`
 - **Screenshots (paths):**
   - `docs/images/07_hv_sw_unit_run001_probe_gds.png`
 - **Notes for reproducibility:**
-  - Generated via KLayout Python macro  
-    `layout/hv_nmos_gr/klayout/hv_sw_unit_run001_probe.py`
+  - Generated via KLayout Python macro
   - Database unit: 1 nm (`layout.dbu = 0.001`)
-  - Geometry intentionally violates expected HV spacing rules
+  - Geometry intentionally violates expected HV spacing constraints
+
+---
+
+## Run 002 (Planned)
+
+### 1) Identification
+- **Run ID:** 002
+- **Date:** 2026-01-12
+- **Designer:** Shinichi Mitsumizo
+- **Tool:** KLayout 0.30.x (Windows)
+- **PDK / Rule Deck version:** GF180MCU Open PDK (manual-rule driven)
+
+---
+
+### 2) Layout Conditions
+- **Device Type:** HV NMOS (same as Run 001)
+- **Nominal Max Voltage V (V):** 80 V
+- **Nominal Current I (A):** Not specified
+- **Target Pitch (µm):** TBD (measured by tiling experiment)
+- **Array Direction (X / Y):** X
+- **Guard Ring Structure:** Partial (strategy change is the single knob)
+- **Power Strategy:** Same as Run 001 (held constant)
+
+---
+
+### 3) Planned Change (Single Knob Only)
+- Remove per-cell continuous P+ guard ring and
+  move to **shared outer guard only** (array-level guard),
+  or equivalent segmentation that does not expand the cell boundary in X.
+
+---
+
+### 4) Success Criteria (Manual)
+- Clean X-direction tiling without geometry overlap
+- No perimeter protrusions into neighbor cell area
+- Guard strategy no longer dominates pitch
+
+---
+
+### 5) Planned Artifacts
+- **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run002_guard_split.py`
+- **GDS:** `layout/hv_nmos_gr/gds/hv_sw_unit_run002_guard_split.gds`
+- **Screenshot:** `docs/images/08_hv_sw_unit_run002_guard_split_gds.png`
 
 ---
 
@@ -162,11 +219,11 @@ Status meaning:
 
 Record changes to this RUNNING_LOG.md itself (so the log format evolution is traceable).
 
-| Rev | Date | Change | Rationale |
-|----:|------|--------|-----------|
-| 1 |  | Added operating rules + master table fields (DRC/LVS/Artifacts) | Reduce ambiguity and make progress queryable |
-| 2 |  | Added V–I fields (V and I) into layout conditions | Enforce consistent V–I discussion |
-| 3 |  | Updated Run 001 status to Running | Mark production-phase execution start |
+| Rev | Date       | Change                                                                 | Rationale |
+|----:|------------|-------------------------------------------------------------------------|-----------|
+| 1   | 2026-01-12 | Added operating rules + master table fields (DRC/LVS/Artifacts)         | Reduce ambiguity and make progress queryable |
+| 2   | 2026-01-12 | Added V–I fields (V and I) into layout conditions                        | Enforce consistent V–I discussion |
+| 3   | 2026-01-12 | Marked Run 001 as Done; documented DRC-unavailable decision and results | Lock Run 001 conclusions and enable Run 002 |
 
 ---
 
