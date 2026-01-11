@@ -206,47 +206,73 @@ Status meaning:
 ## Run 004
 
 ### 1) Identification
-- **Run ID:** 004
-- **Date:** 2026-01-12
-- **Tool:** KLayout 0.30.x (Windows)
+- **Run ID:** 004  
+- **Date:** 2026-01-12  
+- **Designer:** Shinichi Mitsumizo  
+- **Tool:** KLayout 0.30.x (Windows)  
+- **PDK / Rule Deck version:** GF180MCU Open PDK (manual-rule driven)
 
 ---
 
 ### 2) Layout Conditions
-- Base cell: **HV_SW_UNIT_RUN003**
-- Array direction: X
-- Number of tiles: N = 5
-- Nominal pitch tested: **20 µm**
+- **Base cell:** HV_SW_UNIT_RUN003  
+- **Device Type:** HV NMOS  
+- **Nominal Max Voltage V (V):** 80 V  
+- **Nominal Current I (A):** Not specified  
+- **Array Direction:** X  
+- **Number of tiles:** N = 5  
+- **Tested pitch:** **16 µm**  
+- **Guard Ring Structure:** Shared outer guard (same as Run 002/003)  
+- **Power Strategy:** Same as Run 001–003 (held constant)
 
 ---
 
 ### 3) Verification Status
-- **DRC / LVS:** NOT PERFORMED
-- **Other:** Visual inspection + KLayout ruler
+- **DRC / LVS:** NOT PERFORMED  
+  - Reason: Layout-first exploratory phase; no official GF180 KLayout DRC deck available
+- **Other checks:**
+  - Visual inspection in KLayout
+  - Ruler-based spacing confirmation
 
 ---
 
 ### 4) Observations
-- X-direction tiling at **20 µm pitch shows no geometry overlap**.
-- Guard ↔ guard, poly ↔ poly, and Metal1 stub ↔ neighbor all maintain clearance.
-- No new tiling-induced artifacts observed.
+- X-direction tiling at **16 µm pitch is geometrically feasible** (no hard overlaps).
+- **Poly ↔ poly spacing retains margin**; poly end trimming does not introduce conflicts.
+- **Guard ring geometry does not participate** in pitch limitation.
+- The **first structure approaching the limiting condition is Metal1 edge stub**:
+  - Lower Metal1 stub shows visibly reduced inter-cell clearance.
+  - No short or overlap observed, but spacing margin is minimal.
+- No tiling-induced artifacts (placement, mirroring, or orientation errors).
 
 ---
 
 ### 5) Conclusion
-- **Arrayable (X) at 20 µm:** Yes
-- **Dominant pitch limiter:** Not yet reached at 20 µm
-- **Implication:** Further pitch reduction required to expose true limiter.
+- **Arrayable (X) at 16 µm:** Yes (marginal)
+- **Dominant pitch limiter:** **Metal1 stub geometry**
+- **Poly gate end:** Confirmed **non-dominant** at this pitch
+- **Guard strategy:** Confirmed **non-dominant**
+- **Key inference:**
+  - Pitch limitation has transitioned from guard → poly → **Metal1**.
 - **Recommended next action:**
-  - Reduce pitch incrementally (e.g., 18 → 16 → 14 µm),
-    or proceed to **Run 005 (Metal1 stub isolation)**.
+  - Execute **Run 005: Metal1 stub isolation** (single-knob experiment)
+    to determine dominant Metal1 constraint (length / width / vertical offset).
 
 ---
 
 ### 6) Artifacts
-- `layout/hv_nmos_gr/klayout/hv_sw_unit_run004_x_tiling_eval.py`
-- `layout/hv_nmos_gr/gds/hv_sw_unit_run004_x_tiling_eval.gds`
-- `docs/images/10_hv_sw_unit_run004_x_tiling_eval_gds.png`
+- **Python macro:**  
+  `layout/hv_nmos_gr/klayout/hv_sw_unit_run004_x_tiling_eval.py`
+- **GDS filename:**  
+  `layout/hv_nmos_gr/gds/hv_sw_unit_run004_x_tiling_eval.gds`
+- **Screenshot:**  
+  `docs/images/11_hv_sw_unit_run004_x_tiling_eval_16um_gds.png`
+
+---
+
+### 7) Decision Lock
+- Run 004 **closes the poly gate investigation thread**.
+- All subsequent pitch optimization must treat **Metal1 stub geometry** as the primary variable.
 
 ---
 
