@@ -265,7 +265,8 @@ Status meaning:
   `layout/hv_nmos_gr/klayout/hv_sw_unit_run004_x_tiling_eval.py`
 - **GDS filename:**  
   `layout/hv_nmos_gr/gds/hv_sw_unit_run004_x_tiling_eval.gds`
-- **Screenshot:**  
+- **Screenshot:**
+  `docs/images/11_hv_sw_unit_run004_x_tiling_eval_gds.png`
   `docs/images/11_hv_sw_unit_run004_x_tiling_eval_16um_gds.png`
 
 ---
