@@ -34,7 +34,7 @@ rather than serving as a complete IC specification.
 > GitHub Pages does not render Mermaid diagrams by default.
 >
 > 👉 Please view the rendered diagram on GitHub:  
-> https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/index.md
+[View on GitHub (docs/index.md)](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/index.md)
 
 ```mermaid
 flowchart LR
