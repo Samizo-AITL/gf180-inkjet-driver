@@ -21,6 +21,13 @@ This work is **GDS-oriented and layout-first**, prioritizing:
 
 This is **not** a qualified device or production-ready IP.
 
+> **Positioning Note**  
+> The HV_SW_UNIT represents the transition point from
+> *single-device structural study* to *array-level feasibility evaluation*.
+> It builds directly on the earlier **GF180 HV NMOS Layout Study** and was used as
+> the baseline unit for subsequent array, guard ring sharing, and
+> pitch-constrained (400 dpi) feasibility exploration.
+
 ---
 
 ## Directory Structure
@@ -28,12 +35,13 @@ This is **not** a qualified device or production-ready IP.
 ```
 layout/hv_nmos_gr/
 ├─ klayout/
-│  ├─ hv_sw_unit.py     # KLayout (pya) generator script
-│  └─ README.md
+│ ├─ hv_sw_unit.py # KLayout (pya) generator script
+│ └─ README.md
 ├─ gds/
-│  ├─ hv_sw_unit.gds    # Generated and committed GDS reference
-│  └─ .gitkeep
+│ ├─ hv_sw_unit.gds # Generated and committed GDS reference
+│ └─ .gitkeep
 ```
+
 
 ---
 
@@ -89,15 +97,12 @@ Optional:
 1. Open **KLayout**
 2. Open **Macro Development**
 3. Load and run:
-
 ```
-klayout/hv_sw_unit.py
+ klayout/hv_sw_unit.py
 ```
-
 4. The following file will be generated:
-
 ```
-C:\Users\<user>\KLayout\hv_sw_unit.gds
+ C:\Users<user>\KLayout\hv_sw_unit.gds
 ```
 
 ---
@@ -144,9 +149,20 @@ No guarantees of manufacturability or commercial suitability.
 
 ---
 
-## Next Steps
+## Status and Outcome
 
-- Pitch-constrained variant (≈63.5 µm @ 400 dpi)
-- Array tiling experiments
-- Guard ring sharing vs. isolation trade-offs
-- PEX → SPICE → V–I (Id–Vd / Id–Vg) sanity checks
+Using this HV_SW_UNIT as the baseline,
+multiple array configurations were evaluated, including:
+
+- Independent unit isolation
+- Column-wise guard ring sharing
+- Guard-ring-clean shared configurations
+
+These studies demonstrated that, under GF180 DNWELL isolation assumptions,
+**a 400 dpi (63.5 µm) inkjet driver array is structurally infeasible**.
+
+The HV_SW_UNIT therefore serves as a **validated architectural probe**,
+not as a path toward further density optimization under the same assumptions.
+
+
+
