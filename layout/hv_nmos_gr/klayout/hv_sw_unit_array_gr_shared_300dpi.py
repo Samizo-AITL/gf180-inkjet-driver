@@ -11,9 +11,10 @@ def main():
     pitch_y = um(85.0, layout.dbu)
 
     # ==================================================
-    # Build unit & array (GR shared)
+    # Build unit & array
+    # ※ 400dpi と同一レイヤ構成にする
     # ==================================================
-    unit = build_hv_sw_unit_no_gr(
+    unit = build_hv_sw_unit(
         layout,
         "HV_SW_UNIT",
     )
@@ -30,13 +31,14 @@ def main():
 
     # ==================================================
     # Write GDS
+    # ※ 400dpi と同じファイル名で上書き
     # ==================================================
     out = os.path.join(
         os.path.expanduser("~"),
         "KLayout",
-        "hv_sw_unit_array_gr_shared_300dpi.gds",
+        "hv_sw_unit_array_gr_shared.gds",
     )
 
     os.makedirs(os.path.dirname(out), exist_ok=True)
     layout.write(out)
-    print("GDS written to:", out)
+    print("GDS overwritten:", out)
