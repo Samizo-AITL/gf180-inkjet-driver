@@ -1,5 +1,5 @@
 ---
-title: "Documentation"
+title: "gf180-inkjet-driver"
 description: "layout and GDS-oriented design notes"
 ---
 
