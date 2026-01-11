@@ -164,5 +164,9 @@ These studies demonstrated that, under GF180 DNWELL isolation assumptions,
 The HV_SW_UNIT therefore serves as a **validated architectural probe**,
 not as a path toward further density optimization under the same assumptions.
 
+No further area reduction or pitch scaling is pursued at the HV_SW_UNIT level;
+any viable density improvement would require a fundamentally different
+isolation or device strategy beyond the scope of this study.
+
 
 
