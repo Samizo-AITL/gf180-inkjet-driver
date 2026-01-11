@@ -226,3 +226,42 @@ This repository documents a **complete layout-driven exploration loop**:
 
 The recorded artifacts ensure that
 future work does not repeat the same infeasible design path.
+
+---
+
+## ✅ 300 dpi Array Implementation (Final Outcome)
+
+Based on the GDS-level exploration documented above, a **300 dpi pitch
+(~85.0 µm)** configuration was selected as the **minimum viable and
+structurally consistent solution** under GF180MCU HV and DNWELL rules.
+
+### Implemented Artifact
+
+- **Generator**
+  - `layout/hv_nmos_gr/klayout/hv_sw_unit_array_gr_shared_300dpi.py`
+- **Generated GDS**
+  - `layout/hv_nmos_gr/gds/hv_sw_unit_array_gr_shared_300dpi.gds`
+- **Pitch**
+  - 85.0 µm (300 dpi, margin included)
+- **Guard Ring Strategy**
+  - Column-wise shared P+ guard ring
+  - Unit-level guard rings removed
+- **Status**
+  - ✅ GDS successfully generated and verified in KLayout
+
+<img
+  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/06_hv_sw_unit_array_gr_shared_300dpi.png"
+  alt="HV_SW_UNIT Array – 300 dpi Guard-Ring-Shared Implementation"
+  width="80%"
+/>
+
+### Conclusion
+
+While 400 dpi (63.5 µm) configurations fail due to unavoidable
+DNWELL enclosure and spacing constraints, the **300 dpi array
+represents a physically realizable layout point** for GF180-based
+inkjet driver exploration.
+
+This configuration is treated as the **baseline (golden) array**
+for any subsequent device sizing, electrical evaluation,
+or architectural extension.
