@@ -207,6 +207,42 @@ but to preserve **design reasoning grounded in physical layout reality**.
 
 ---
 
+## Rationale for NMOS-Based 4×2 Array Layout Check
+
+Prior to fixing the 300 dpi configuration as the baseline array,
+a **4×2 NMOS-based HV switch array** was intentionally selected
+as the minimum verification structure for layout feasibility.
+
+This choice was made for the following reasons:
+
+- **Worst-case isolation constraints first**  
+  Under GF180MCU rules, **DNWELL enclosure, spacing, and guard-ring continuity**
+  dominate array pitch feasibility.
+  A low-side **NMOS-centered topology** represents the most demanding case
+  in terms of substrate noise isolation and DNWELL usage.
+  Verifying pitch feasibility under this condition establishes
+  a conservative physical baseline.
+
+- **Avoidance of edge-dominated artifacts**  
+  Single-unit or linear (1×N) layouts are strongly affected by
+  guard-ring termination and DNWELL boundary effects.
+  A **4×2 array** provides a central region that closely approximates
+  an infinite array, allowing realistic evaluation of
+  shared guard rings, well continuity, and routing congestion.
+
+- **Array-level sharing and repetition check**  
+  The 4×2 structure is the smallest block that simultaneously exposes:
+  guard-ring sharing effectiveness, DNWELL shape propagation,
+  power/ground rail continuity, and repeatability under tiling.
+
+For these reasons, the **NMOS-based 4×2 array** was used as the
+layout feasibility checkpoint.
+Once a **300 dpi pitch** was confirmed under this worst-case condition,
+the resulting configuration was promoted to the
+**baseline (golden) array** for subsequent exploration.
+
+---
+
 ## ✅ 300 dpi Array Implementation (Final Outcome)
 
 Based on the GDS-level exploration documented above, a **300 dpi pitch
