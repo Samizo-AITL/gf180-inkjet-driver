@@ -24,6 +24,19 @@ available in the GF180MCU open PDK.
 
 ---
 
+- **Initial exploration is based on NMOS-centered HV devices.**  
+  In GF180MCU, array-level feasibility is primarily constrained by
+  **DNWELL enclosure, spacing, and guard-ring requirements** rather than
+  intrinsic device characteristics.
+  NMOS-based low-side configurations are therefore used as a
+  conservative baseline for physical evaluation.
+
+- Device and topology conclusions are derived from
+  **array-level layout behavior** (DNWELL continuity, spacing propagation,
+  guard-ring sharing), not from single-device schematic metrics.
+
+---
+
 ## Open Questions
 
 - Optimal device selection for repetitive pulse stress
