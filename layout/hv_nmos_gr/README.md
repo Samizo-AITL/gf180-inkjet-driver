@@ -15,9 +15,12 @@ inkjet printhead driver ICs.
 
 > **Positioning Note**  
 > This layout represents an early, manually created HV NMOS GDS reference.
-> It serves as a *baseline structural study* and **was intentionally created
-> prior to generator-based HV unit layouts (HV_SW_UNIT)** that were later used for
-> array construction and pitch-constrained feasibility exploration.
+> It serves as a *baseline structural study* and **is not intended to be
+> reused directly in array or pitch-constrained designs**.
+>
+> Generator-based HV unit layouts (HV_SW_UNIT), developed later in this
+> repository, explicitly abstract and restructure this device-level study
+> for array construction and feasibility analysis.
 
 ---
 
