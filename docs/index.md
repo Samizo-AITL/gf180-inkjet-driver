@@ -252,28 +252,3 @@ This documentation is provided **for educational and exploratory purposes only**
 
 No guarantees are made regarding manufacturability, electrical performance,
 reliability, or suitability for any commercial application.
-
----
-
-## Layout Design Environment
-
-<img
-  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/01_gf180_inkjet_env_klayout.png"
-  alt="GF180 Inkjet Driver – KLayout Environment"
-  width="80%"
-/>
-
----
-
-## Outcome
-
-This repository documents a **complete layout-driven exploration loop**:
-
-- Single HV MOS device  
-- → HV switch unit  
-- → Array construction  
-- → Guard ring sharing  
-- → **Architectural feasibility conclusion**
-
-The recorded artifacts ensure that
-future work does not repeat the same infeasible design path.
