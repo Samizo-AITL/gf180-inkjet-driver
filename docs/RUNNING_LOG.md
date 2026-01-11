@@ -74,20 +74,23 @@ Status meaning:
 ## Result Form (Fill for Every Run)
 
 ### 1) Identification
-- Run ID:
-- Date:
-- Designer:
-- Tool (e.g., KLayout version):
-- PDK / Rule Deck version (if known):
+- **Run ID:** 001
+- **Date:** 2026-01-12
+- **Designer:** Shinichi Mitsumizo
+- **Tool:** KLayout 0.29.x (Windows)
+- **PDK / Rule Deck version:** GF180MCU Open PDK (HV ruleset, exact revision unknown)
 
 ### 2) Layout Conditions
-- Device Type (e.g., HV NMOS / LDMOS / stack / etc.):
-- Nominal Max Voltage V (V):
-- Nominal Current I (A):
-- Target Pitch (µm):
-- Array Direction (X / Y):
-- Guard Ring Structure: Yes / No / Partial
-- Power Strategy (rails / isolation / sharing):
+- **Device Type:** HV NMOS (GF180 native HV device)
+- **Nominal Max Voltage V (V):** 80 V (exploration target, non-guaranteed)
+- **Nominal Current I (A):** Not specified (physical constraints prioritized)
+- **Target Pitch (µm):** 20 µm (initial hypothesis, expected to be violated)
+- **Array Direction (X / Y):** X
+- **Guard Ring Structure:** Yes (continuous P+ guard, shared)
+- **Power Strategy (rails / isolation / sharing):**
+  - Source: Shared across array
+  - Drain: Individually routed per cell
+  - Bulk: Fixed via guard ring
 
 ### 3) Verification Status
 - DRC: PASS / FAIL / NOT CHECKED
