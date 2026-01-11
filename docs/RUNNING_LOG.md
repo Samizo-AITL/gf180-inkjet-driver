@@ -67,11 +67,11 @@ Status meaning:
 - Done: concluded with documented outcomes
 - Parked: intentionally paused (reason required)
 
-| Run ID | Date       | Target     | Description                                              | Status  | DRC            | LVS            | Artifacts       | Notes |
-|------:|------------|------------|----------------------------------------------------------|---------|----------------|----------------|-----------------|-------|
-| 001   | 2026-01-12 | HV_SW_UNIT | Probe layout to expose dominant HV physical constraints   | Done    | NOT PERFORMED* | NOT PERFORMED  | py / gds / png  | *Official GF180 KLayout DRC not available |
-| 002   | 2026-01-12 | HV_SW_UNIT | Guard strategy: per-cell → shared outer                  | Planned | NOT PERFORMED  | NOT PERFORMED  | (TBD)           | Single-knob experiment |
-| 003   | 2026-01-12 | HV_SW_UNIT | Poly gate end treatment isolation                        | Planned | NOT PERFORMED  | NOT PERFORMED  | (TBD)           | Single-knob experiment |
+| Run ID | Date       | Target     | Description                                               | Status | DRC            | LVS            | Artifacts       | Notes |
+|------:|------------|------------|-----------------------------------------------------------|--------|----------------|----------------|-----------------|-------|
+| 001   | 2026-01-12 | HV_SW_UNIT | Probe layout to expose dominant HV physical constraints    | Done   | NOT PERFORMED* | NOT PERFORMED  | py / gds / png  | *Official GF180 KLayout DRC not available |
+| 002   | 2026-01-12 | HV_SW_UNIT | Guard strategy: per-cell → shared outer                   | Done   | NOT PERFORMED  | NOT PERFORMED  | py / gds / png  | Guard dominance removed |
+| 003   | 2026-01-12 | HV_SW_UNIT | Poly gate end treatment isolation                         | Done   | NOT PERFORMED  | NOT PERFORMED  | py / gds / png  | Poly-only single-knob |
 
 ---
 
@@ -146,7 +146,6 @@ Status meaning:
     for this exploratory phase.
 - **Rationale:**
   - The purpose of Run 001 is constraint discovery, not rule closure.
-    Manual, layout-first insight is sufficient and more efficient at this stage.
 
 ---
 
@@ -155,26 +154,18 @@ Status meaning:
 - **Arrayable (X):** No
 - **Arrayable (Y):** Not evaluated
 - **Recommended next action:**
-  - Start **Run 002** with a single controlled change focused on guard strategy,
-    while keeping all other parameters identical for comparison.
+  - Start **Run 002** with a single controlled change focused on guard strategy.
 
 ---
 
 ### 7) Artifacts
-- **Python macro:**
-  - `layout/hv_nmos_gr/klayout/hv_sw_unit_run001_probe.py`
-- **GDS filename:**
-  - `layout/hv_nmos_gr/gds/hv_sw_unit_run001_probe.gds`
-- **Screenshots (paths):**
-  - `docs/images/07_hv_sw_unit_run001_probe_gds.png`
-- **Notes for reproducibility:**
-  - Generated via KLayout Python macro
-  - Database unit: 1 nm (`layout.dbu = 0.001`)
-  - Geometry intentionally violates expected HV spacing constraints
+- **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run001_probe.py`
+- **GDS filename:** `layout/hv_nmos_gr/gds/hv_sw_unit_run001_probe.gds`
+- **Screenshot:** `docs/images/07_hv_sw_unit_run001_probe_gds.png`
 
 ---
 
-## Run 002 (Planned)
+## Run 002
 
 ### 1) Identification
 - **Run ID:** 002
@@ -191,33 +182,37 @@ Status meaning:
 - **Nominal Current I (A):** Not specified
 - **Target Pitch (µm):** TBD (measured by tiling experiment)
 - **Array Direction (X / Y):** X
-- **Guard Ring Structure:** Partial (strategy change is the single knob)
-- **Power Strategy:** Same as Run 001 (held constant)
+- **Guard Ring Structure:** Shared outer guard (array-level)
+- **Power Strategy:** Same as Run 001
 
 ---
 
-### 3) Planned Change (Single Knob Only)
-- Remove per-cell continuous P+ guard ring and
-  move to **shared outer guard only** (array-level guard),
-  or equivalent segmentation that does not expand the cell boundary in X.
+### 3) Verification Status
+- **DRC / LVS:** NOT PERFORMED (by intent)
 
 ---
 
-### 4) Success Criteria (Manual)
-- Clean X-direction tiling without geometry overlap
-- No perimeter protrusions into neighbor cell area
-- Guard strategy no longer dominates pitch
+### 4) Observations
+- Removal of per-cell guard ring **eliminated guard-dominated pitch inflation**.
+- Cell boundary in X is no longer dictated by P+ guard geometry.
 
 ---
 
-### 5) Planned Artifacts
-- **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run002_guard_split.py`
-- **GDS:** `layout/hv_nmos_gr/gds/hv_sw_unit_run002_guard_split.gds`
-- **Screenshot:** `docs/images/08_hv_sw_unit_run002_guard_split_gds.png`
+### 5) Conclusion
+- **Arrayable (X):** Potentially yes (subject to poly / metal constraints)
+- **Next dominant candidates:** Poly gate end, Metal1 edge stubs
+- **Next action:** Run 003
 
 ---
 
-## Run 003 (Planned)
+### 6) Artifacts
+- **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run002_guard_shared.py`
+- **GDS filename:** `layout/hv_nmos_gr/gds/hv_sw_unit_run002_guard_shared.gds`
+- **Screenshot:** `docs/images/08_hv_sw_unit_run002_guard_shared_gds.png`
+
+---
+
+## Run 003
 
 ### 1) Identification
 - **Run ID:** 003
@@ -232,44 +227,60 @@ Status meaning:
 - **Device Type:** HV NMOS (same primitive as Run 001/002)
 - **Nominal Max Voltage V (V):** 80 V
 - **Nominal Current I (A):** Not specified
-- **Target Pitch (µm):** TBD (measured empirically)
+- **Target Pitch (µm):** TBD (pending tiling)
 - **Array Direction (X / Y):** X
-- **Guard Ring Structure:** Same as Run 002 (held constant)
-- **Power Strategy:** Same as Run 001/002 (held constant)
+- **Guard Ring Structure:** Shared outer guard (same as Run 002)
+- **Power Strategy:** Same as Run 001/002
 
 ---
 
-### 3) Planned Change (Single Knob Only)
-- **Poly gate end treatment modification**
-  - Reduce / reshape **poly gate over-extension** at cell boundary
-  - No change to guard strategy, active diffusion geometry, or metal topology
+### 3) Change Introduced (Single Knob)
+- **Poly gate end trimming**
+  - Poly over-extension at cell boundary reduced
+  - No change to guard, active diffusion, or Metal1 topology
 
 ---
 
-### 4) Success Criteria (Manual)
-- X-direction tiling without poly-related overlap
-- Measurable pitch reduction compared to Run 002
-- No new perimeter protrusions introduced
+### 4) Verification Status
+- **DRC / LVS:** NOT PERFORMED (layout-first exploratory phase)
+- **Other:** Visual inspection in KLayout; layer intent confirmed
 
 ---
 
-### 5) Planned Artifacts
+### 5) Observations
+- Poly gate end length is **visibly reduced** compared to Run 002.
+- No new perimeter protrusions introduced.
+- Guard no longer dominates cell boundary.
+- **Dominant pitch limiter not conclusively removed without tiling.**
+
+---
+
+### 6) Conclusion
+- **Arrayable (X):** Not concluded (requires X-tiling experiment)
+- **Preliminary inference:**
+  - If pitch improves → poly end was dominant limiter.
+  - If unchanged → Metal1 edge stub / contact enclosure likely dominant.
+- **Recommended next action:**
+  - Perform X-direction tiling and pitch measurement (**Run 004 candidate**).
+
+---
+
+### 7) Artifacts
 - **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run003_poly_trim.py`
-- **GDS:** `layout/hv_nmos_gr/gds/hv_sw_unit_run003_poly_trim.gds`
+- **GDS filename:** `layout/hv_nmos_gr/gds/hv_sw_unit_run003_poly_trim.gds`
 - **Screenshot:** `docs/images/09_hv_sw_unit_run003_poly_trim_gds.png`
 
 ---
 
 ## Revision Notes (Meta-Changes to This Log)
 
-Record changes to this RUNNING_LOG.md itself (so the log format evolution is traceable).
-
-| Rev | Date       | Change                                                              | Rationale |
-|----:|------------|---------------------------------------------------------------------|-----------|
-| 1   | 2026-01-12 | Added operating rules + master table fields (DRC/LVS/Artifacts)     | Reduce ambiguity and make progress queryable |
-| 2   | 2026-01-12 | Added V–I fields (V and I) into layout conditions                   | Enforce consistent V–I discussion |
-| 3   | 2026-01-12 | Marked Run 001 as Done; documented DRC-unavailable decision/results | Lock Run 001 conclusions and enable Run 002 |
-| 4   | 2026-01-12 | Added Run 003 (poly gate end isolation, planned)                    | Continue single-knob layout constraint isolation |
+| Rev | Date       | Change                                                        | Rationale |
+|----:|------------|---------------------------------------------------------------|-----------|
+| 1   | 2026-01-12 | Added operating rules + master table fields                   | Reduce ambiguity |
+| 2   | 2026-01-12 | Added V–I fields                                              | Enforce V–I notation |
+| 3   | 2026-01-12 | Locked Run 001 results                                        | Enable comparison |
+| 4   | 2026-01-12 | Marked Run 002 as Done                                        | Guard factor isolated |
+| 5   | 2026-01-12 | Marked Run 003 as Done; documented poly-trim results          | Single-knob isolation |
 
 ---
 
