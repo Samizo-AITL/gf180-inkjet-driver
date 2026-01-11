@@ -72,6 +72,7 @@ Status meaning:
 | 001   | 2026-01-12 | HV_SW_UNIT | Probe layout to expose dominant HV physical constraints    | Done   | NOT PERFORMED* | NOT PERFORMED  | py / gds / png  | *Official GF180 KLayout DRC not available |
 | 002   | 2026-01-12 | HV_SW_UNIT | Guard strategy: per-cell → shared outer                   | Done   | NOT PERFORMED  | NOT PERFORMED  | py / gds / png  | Guard dominance removed |
 | 003   | 2026-01-12 | HV_SW_UNIT | Poly gate end treatment isolation                         | Done   | NOT PERFORMED  | NOT PERFORMED  | py / gds / png  | Poly-only single-knob |
+| 004   | 2026-01-12 | HV_SW_UNIT | X-direction tiling & pitch measurement (Run003 base)      | Done   | NOT PERFORMED  | NOT PERFORMED  | py / gds / png  | 20 µm: no conflict |
 
 ---
 
@@ -121,47 +122,30 @@ Status meaning:
 
 ### 4) Observations
 - **Critical layout constraints discovered (manual, rule-agnostic):**
-  - **P+ guard ring outer boundary dominates cell footprint**, even for a minimal
-    single-device probe.
-  - **Poly gate over-extension** immediately interacts with perimeter structures
-    and is likely to dominate achievable pitch in dense arrays.
-  - **Metal1 edge stubs** create early spacing hotspots at cell boundaries,
-    making naive tiling unsafe.
-- **Unexpected interactions:**
-  - Tight guard margin combined with aggressive poly extension causes
-    perimeter congestion before any real routing strategy is introduced.
-- **Area-dominating structures:**
-  - Continuous P+ guard ring is the single largest mandatory structure.
-- **Repeatability / tiling issues:**
-  - Edge protrusions (metal stubs) are not tiling-safe without explicit
-    inter-cell keepout definitions.
+  - **P+ guard ring outer boundary dominates cell footprint**.
+  - **Poly gate over-extension** likely dominates achievable pitch.
+  - **Metal1 edge stubs** create early spacing hotspots.
+- **Repeatability issues:**
+  - Edge protrusions are not tiling-safe without keepout definition.
 
 ---
 
 ### 5) Decisions
-- **Accepted compromises:**
-  - Keep Run 001 geometry intentionally “bad” to surface dominant physical drivers.
-- **Rejected options:**
-  - Attempting to port or reconstruct a non-existent GF180 KLayout DRC deck
-    for this exploratory phase.
-- **Rationale:**
-  - The purpose of Run 001 is constraint discovery, not rule closure.
+- Keep geometry intentionally aggressive to surface dominant drivers.
+- Do not attempt DRC deck reconstruction in this phase.
 
 ---
 
 ### 6) Conclusion
-- **Structurally acceptable as HV_SW_UNIT:** Not concluded (no formal DRC)
 - **Arrayable (X):** No
-- **Arrayable (Y):** Not evaluated
-- **Recommended next action:**
-  - Start **Run 002** with a single controlled change focused on guard strategy.
+- **Next action:** Run 002
 
 ---
 
 ### 7) Artifacts
-- **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run001_probe.py`
-- **GDS filename:** `layout/hv_nmos_gr/gds/hv_sw_unit_run001_probe.gds`
-- **Screenshot:** `docs/images/07_hv_sw_unit_run001_probe_gds.png`
+- `layout/hv_nmos_gr/klayout/hv_sw_unit_run001_probe.py`
+- `layout/hv_nmos_gr/gds/hv_sw_unit_run001_probe.gds`
+- `docs/images/07_hv_sw_unit_run001_probe_gds.png`
 
 ---
 
@@ -170,45 +154,24 @@ Status meaning:
 ### 1) Identification
 - **Run ID:** 002
 - **Date:** 2026-01-12
-- **Designer:** Shinichi Mitsumizo
-- **Tool:** KLayout 0.30.x (Windows)
-- **PDK / Rule Deck version:** GF180MCU Open PDK (manual-rule driven)
 
 ---
 
-### 2) Layout Conditions
-- **Device Type:** HV NMOS (same as Run 001)
-- **Nominal Max Voltage V (V):** 80 V
-- **Nominal Current I (A):** Not specified
-- **Target Pitch (µm):** TBD (measured by tiling experiment)
-- **Array Direction (X / Y):** X
-- **Guard Ring Structure:** Shared outer guard (array-level)
-- **Power Strategy:** Same as Run 001
+### 2) Observations
+- Shared outer guard removed guard-dominated pitch inflation.
 
 ---
 
-### 3) Verification Status
-- **DRC / LVS:** NOT PERFORMED (by intent)
-
----
-
-### 4) Observations
-- Removal of per-cell guard ring **eliminated guard-dominated pitch inflation**.
-- Cell boundary in X is no longer dictated by P+ guard geometry.
-
----
-
-### 5) Conclusion
-- **Arrayable (X):** Potentially yes (subject to poly / metal constraints)
-- **Next dominant candidates:** Poly gate end, Metal1 edge stubs
+### 3) Conclusion
+- **Arrayable (X):** Potentially yes
 - **Next action:** Run 003
 
 ---
 
-### 6) Artifacts
-- **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run002_guard_shared.py`
-- **GDS filename:** `layout/hv_nmos_gr/gds/hv_sw_unit_run002_guard_shared.gds`
-- **Screenshot:** `docs/images/08_hv_sw_unit_run002_guard_shared_gds.png`
+### 4) Artifacts
+- `layout/hv_nmos_gr/klayout/hv_sw_unit_run002_guard_shared.py`
+- `layout/hv_nmos_gr/gds/hv_sw_unit_run002_guard_shared.gds`
+- `docs/images/08_hv_sw_unit_run002_guard_shared_gds.png`
 
 ---
 
@@ -217,115 +180,73 @@ Status meaning:
 ### 1) Identification
 - **Run ID:** 003
 - **Date:** 2026-01-12
-- **Designer:** Shinichi Mitsumizo
-- **Tool:** KLayout 0.30.x (Windows)
-- **PDK / Rule Deck version:** GF180MCU Open PDK (manual-rule driven)
 
 ---
 
-### 2) Layout Conditions
-- **Device Type:** HV NMOS (same primitive as Run 001/002)
-- **Nominal Max Voltage V (V):** 80 V
-- **Nominal Current I (A):** Not specified
-- **Target Pitch (µm):** TBD (pending tiling)
-- **Array Direction (X / Y):** X
-- **Guard Ring Structure:** Shared outer guard (same as Run 002)
-- **Power Strategy:** Same as Run 001/002
+### 2) Observations
+- Poly gate end length reduced.
+- No new perimeter protrusions.
+- Guard no longer dominates pitch.
 
 ---
 
-### 3) Change Introduced (Single Knob)
-- **Poly gate end trimming**
-  - Poly over-extension at cell boundary reduced
-  - No change to guard, active diffusion, or Metal1 topology
+### 3) Conclusion
+- **Arrayable (X):** Not concluded without tiling
+- **Next action:** Run 004
 
 ---
 
-### 4) Verification Status
-- **DRC / LVS:** NOT PERFORMED (layout-first exploratory phase)
-- **Other:** Visual inspection in KLayout; layer intent confirmed
+### 4) Artifacts
+- `layout/hv_nmos_gr/klayout/hv_sw_unit_run003_poly_trim.py`
+- `layout/hv_nmos_gr/gds/hv_sw_unit_run003_poly_trim.gds`
+- `docs/images/09_hv_sw_unit_run003_poly_trim_gds.png`
 
 ---
 
-### 5) Observations
-- Poly gate end length is **visibly reduced** compared to Run 002.
-- No new perimeter protrusions introduced.
-- Guard no longer dominates cell boundary.
-- **Dominant pitch limiter not conclusively removed without tiling.**
-
----
-
-### 6) Conclusion
-- **Arrayable (X):** Not concluded (requires X-tiling experiment)
-- **Preliminary inference:**
-  - If pitch improves → poly end was dominant limiter.
-  - If unchanged → Metal1 edge stub / contact enclosure likely dominant.
-- **Recommended next action:**
-  - Perform X-direction tiling and pitch measurement (**Run 004 candidate**).
-
----
-
-### 7) Artifacts
-- **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run003_poly_trim.py`
-- **GDS filename:** `layout/hv_nmos_gr/gds/hv_sw_unit_run003_poly_trim.gds`
-- **Screenshot:** `docs/images/09_hv_sw_unit_run003_poly_trim_gds.png`
-
----
-
-## Run 004 (Planned)
+## Run 004
 
 ### 1) Identification
 - **Run ID:** 004
 - **Date:** 2026-01-12
-- **Designer:** Shinichi Mitsumizo
 - **Tool:** KLayout 0.30.x (Windows)
-- **PDK / Rule Deck version:** GF180MCU Open PDK (manual-rule driven)
 
 ---
 
 ### 2) Layout Conditions
-- **Target Object:** HV_SW_UNIT (use Run 003 geometry as-is)
-- **Device Type:** HV NMOS (same primitive)
-- **Nominal Max Voltage V (V):** 80 V
-- **Nominal Current I (A):** Not specified
-- **Array Direction (X / Y):** X
-- **Guard Ring Structure:** Shared outer guard (same as Run 002/003)
-- **Power Strategy:** Same as Run 001–003 (held constant)
+- Base cell: **HV_SW_UNIT_RUN003**
+- Array direction: X
+- Number of tiles: N = 5
+- Nominal pitch tested: **20 µm**
 
 ---
 
-### 3) Planned Change (Single Knob Only)
-- **X-direction tiling (array placement) + pitch measurement**
-  - Replicate **HV_SW_UNIT_RUN003** cell in X (e.g., N=3 or N=5)
-  - No geometry edits inside the unit cell (poly/active/metal unchanged)
-  - Objective: Determine whether pitch is limited by **poly end** or **metal stubs / enclosure**
+### 3) Verification Status
+- **DRC / LVS:** NOT PERFORMED
+- **Other:** Visual inspection + KLayout ruler
 
 ---
 
-### 4) Success Criteria (Manual)
-- Clean X-direction tiling without geometry overlap (visual + ruler)
-- Extract measurable **minimum safe pitch** in µm
-- Identify the first collision / hotspot class:
-  - Poly↔Poly / Poly↔Active
-  - M1 stub↔neighbor
-  - Guard-related boundary (should be non-dominant)
+### 4) Observations
+- X-direction tiling at **20 µm pitch shows no geometry overlap**.
+- Guard ↔ guard, poly ↔ poly, and Metal1 stub ↔ neighbor all maintain clearance.
+- No new tiling-induced artifacts observed.
 
 ---
 
-### 5) Planned Artifacts
-- **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run004_x_tiling_eval.py`
-- **GDS:** `layout/hv_nmos_gr/gds/hv_sw_unit_run004_x_tiling_eval.gds`
-- **Screenshot:** `docs/images/10_hv_sw_unit_run004_x_tiling_eval_gds.png`
+### 5) Conclusion
+- **Arrayable (X) at 20 µm:** Yes
+- **Dominant pitch limiter:** Not yet reached at 20 µm
+- **Implication:** Further pitch reduction required to expose true limiter.
+- **Recommended next action:**
+  - Reduce pitch incrementally (e.g., 18 → 16 → 14 µm),
+    or proceed to **Run 005 (Metal1 stub isolation)**.
 
 ---
 
-### 6) Expected Outcomes (Decision Gates)
-- If pitch improves vs Run 002 and is set by poly spacing:
-  - Confirm **poly end** was dominant (Run 003 success)
-  - Next knob: metal stub minimization (Run 005)
-- If pitch unchanged and set by M1 stub / contact enclosure:
-  - Confirm **metal side protrusions** dominate
-  - Next knob: M1 stub isolation (Run 005 = metal-only change)
+### 6) Artifacts
+- `layout/hv_nmos_gr/klayout/hv_sw_unit_run004_x_tiling_eval.py`
+- `layout/hv_nmos_gr/gds/hv_sw_unit_run004_x_tiling_eval.gds`
+- `docs/images/10_hv_sw_unit_run004_x_tiling_eval_gds.png`
 
 ---
 
@@ -337,7 +258,8 @@ Status meaning:
 | 2   | 2026-01-12 | Added V–I fields                                              | Enforce V–I notation |
 | 3   | 2026-01-12 | Locked Run 001 results                                        | Enable comparison |
 | 4   | 2026-01-12 | Marked Run 002 as Done                                        | Guard factor isolated |
-| 5   | 2026-01-12 | Marked Run 003 as Done; documented poly-trim results          | Single-knob isolation |
+| 5   | 2026-01-12 | Marked Run 003 as Done                                        | Poly factor isolated |
+| 6   | 2026-01-12 | Marked Run 004 as Done; 20 µm tiling verified                 | Baseline arrayability |
 
 ---
 
