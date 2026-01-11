@@ -1,6 +1,6 @@
 ---
-title: "gf180-inkjet-driver"
-description: "Documentation for GF180-based inkjet printhead driver IC exploration"
+layout: default
+title: Documentation – gf180-inkjet-driver
 ---
 
 # Documentation – gf180-inkjet-driver
