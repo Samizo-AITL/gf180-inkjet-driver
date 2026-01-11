@@ -1,6 +1,6 @@
 ---
-layout: default
-title: Documentation – gf180-inkjet-driver
+title: "Documentation"
+description: "layout and GDS-oriented design notes"
 ---
 
 # Documentation – gf180-inkjet-driver
