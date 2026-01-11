@@ -29,6 +29,13 @@ rather than serving as a complete IC specification.
 
 ## 🗺 Layout Map (GDS-Oriented Overview)
 
+> 📌 **Mermaid rendering note**  
+> This diagram is written in Mermaid syntax and is rendered correctly on GitHub.  
+> GitHub Pages does not render Mermaid diagrams by default.
+>
+> 👉 Please view the rendered diagram on GitHub:  
+> https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/index.md
+
 ```mermaid
 flowchart LR
   A[docs/ : GDS-oriented design notes] --> B[Core Architecture Docs]
