@@ -67,10 +67,11 @@ Status meaning:
 - Done: concluded with documented outcomes
 - Parked: intentionally paused (reason required)
 
-| Run ID | Date       | Target      | Description                                                   | Status | DRC            | LVS            | Artifacts       | Notes |
-|------:|------------|-------------|---------------------------------------------------------------|--------|----------------|----------------|-----------------|-------|
-| 001   | 2026-01-12 | HV_SW_UNIT  | Probe layout to expose dominant HV physical constraints        | Done   | NOT PERFORMED* | NOT PERFORMED  | py / gds / png  | *Official GF180 KLayout DRC not available |
-| 002   | 2026-01-12 | HV_SW_UNIT  | Guard-ring vs pitch dominance split (manual-rule driven)      | Planned| NOT PERFORMED  | NOT PERFORMED  | (TBD)           | Single-knob experiment |
+| Run ID | Date       | Target     | Description                                              | Status  | DRC            | LVS            | Artifacts       | Notes |
+|------:|------------|------------|----------------------------------------------------------|---------|----------------|----------------|-----------------|-------|
+| 001   | 2026-01-12 | HV_SW_UNIT | Probe layout to expose dominant HV physical constraints   | Done    | NOT PERFORMED* | NOT PERFORMED  | py / gds / png  | *Official GF180 KLayout DRC not available |
+| 002   | 2026-01-12 | HV_SW_UNIT | Guard strategy: per-cell → shared outer                  | Planned | NOT PERFORMED  | NOT PERFORMED  | (TBD)           | Single-knob experiment |
+| 003   | 2026-01-12 | HV_SW_UNIT | Poly gate end treatment isolation                        | Planned | NOT PERFORMED  | NOT PERFORMED  | (TBD)           | Single-knob experiment |
 
 ---
 
@@ -151,7 +152,8 @@ Status meaning:
 
 ### 6) Conclusion
 - **Structurally acceptable as HV_SW_UNIT:** Not concluded (no formal DRC)
-- **Arrayable without modification:** No
+- **Arrayable (X):** No
+- **Arrayable (Y):** Not evaluated
 - **Recommended next action:**
   - Start **Run 002** with a single controlled change focused on guard strategy,
     while keeping all other parameters identical for comparison.
@@ -215,15 +217,59 @@ Status meaning:
 
 ---
 
+## Run 003 (Planned)
+
+### 1) Identification
+- **Run ID:** 003
+- **Date:** 2026-01-12
+- **Designer:** Shinichi Mitsumizo
+- **Tool:** KLayout 0.30.x (Windows)
+- **PDK / Rule Deck version:** GF180MCU Open PDK (manual-rule driven)
+
+---
+
+### 2) Layout Conditions
+- **Device Type:** HV NMOS (same primitive as Run 001/002)
+- **Nominal Max Voltage V (V):** 80 V
+- **Nominal Current I (A):** Not specified
+- **Target Pitch (µm):** TBD (measured empirically)
+- **Array Direction (X / Y):** X
+- **Guard Ring Structure:** Same as Run 002 (held constant)
+- **Power Strategy:** Same as Run 001/002 (held constant)
+
+---
+
+### 3) Planned Change (Single Knob Only)
+- **Poly gate end treatment modification**
+  - Reduce / reshape **poly gate over-extension** at cell boundary
+  - No change to guard strategy, active diffusion geometry, or metal topology
+
+---
+
+### 4) Success Criteria (Manual)
+- X-direction tiling without poly-related overlap
+- Measurable pitch reduction compared to Run 002
+- No new perimeter protrusions introduced
+
+---
+
+### 5) Planned Artifacts
+- **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run003_poly_trim.py`
+- **GDS:** `layout/hv_nmos_gr/gds/hv_sw_unit_run003_poly_trim.gds`
+- **Screenshot:** `docs/images/09_hv_sw_unit_run003_poly_trim_gds.png`
+
+---
+
 ## Revision Notes (Meta-Changes to This Log)
 
 Record changes to this RUNNING_LOG.md itself (so the log format evolution is traceable).
 
-| Rev | Date       | Change                                                                 | Rationale |
-|----:|------------|-------------------------------------------------------------------------|-----------|
-| 1   | 2026-01-12 | Added operating rules + master table fields (DRC/LVS/Artifacts)         | Reduce ambiguity and make progress queryable |
-| 2   | 2026-01-12 | Added V–I fields (V and I) into layout conditions                        | Enforce consistent V–I discussion |
-| 3   | 2026-01-12 | Marked Run 001 as Done; documented DRC-unavailable decision and results | Lock Run 001 conclusions and enable Run 002 |
+| Rev | Date       | Change                                                              | Rationale |
+|----:|------------|---------------------------------------------------------------------|-----------|
+| 1   | 2026-01-12 | Added operating rules + master table fields (DRC/LVS/Artifacts)     | Reduce ambiguity and make progress queryable |
+| 2   | 2026-01-12 | Added V–I fields (V and I) into layout conditions                   | Enforce consistent V–I discussion |
+| 3   | 2026-01-12 | Marked Run 001 as Done; documented DRC-unavailable decision/results | Lock Run 001 conclusions and enable Run 002 |
+| 4   | 2026-01-12 | Added Run 003 (poly gate end isolation, planned)                    | Continue single-knob layout constraint isolation |
 
 ---
 
