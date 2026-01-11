@@ -62,3 +62,19 @@ driver stages** coexist on a single die.
 - No closed-loop sensing (open-loop drive)
 - Single-channel or few-channel focus
 - Educational / exploratory scale
+
+---
+
+- **Baseline HV driver topology assumes an NMOS-centered low-side switch.**  
+  This choice reflects a layout-first exploration strategy under
+  GF180MCU **DNWELL and guard-ring constraints**, where substrate isolation
+  dominates array pitch feasibility.
+
+- **Array feasibility is evaluated using a minimal 4×2 HV switch block.**  
+  This configuration is sufficient to expose DNWELL continuity,
+  guard-ring sharing, and edge effects while approximating
+  an infinite array in its central region.
+
+- Architectural conclusions are drawn from **worst-case physical constraints**
+  rather than schematic optimality.
+
