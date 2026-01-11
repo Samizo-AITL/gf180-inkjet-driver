@@ -67,7 +67,7 @@ Status meaning:
 
 | Run ID | Date | Target | Description | Status | DRC | LVS | Artifacts | Notes |
 |------:|------|--------|-------------|--------|-----|-----|----------|------|
-| 001 |  | HV_SW_UNIT | Initial layout trial | Planned |  |  |  | First production-style run |
+| 001 |  | HV_SW_UNIT | Initial layout trial | Running |  |  |  | Layout started |
 
 ---
 
@@ -129,6 +129,7 @@ Record changes to this RUNNING_LOG.md itself (so the log format evolution is tra
 |----:|------|--------|-----------|
 | 1 |  | Added operating rules + master table fields (DRC/LVS/Artifacts) | Reduce ambiguity and make progress queryable |
 | 2 |  | Added V–I fields (V and I) into layout conditions | Enforce consistent V–I discussion |
+| 3 |  | Updated Run 001 status to Running | Mark production-phase execution start |
 
 ---
 
