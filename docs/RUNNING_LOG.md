@@ -73,12 +73,16 @@ Status meaning:
 
 ## Result Form (Fill for Every Run)
 
+---
+
 ### 1) Identification
 - **Run ID:** 001
 - **Date:** 2026-01-12
 - **Designer:** Shinichi Mitsumizo
 - **Tool:** KLayout 0.29.x (Windows)
 - **PDK / Rule Deck version:** GF180MCU Open PDK (HV ruleset, exact revision unknown)
+
+---
 
 ### 2) Layout Conditions
 - **Device Type:** HV NMOS (GF180 native HV device)
@@ -92,35 +96,65 @@ Status meaning:
   - Drain: Individually routed per cell
   - Bulk: Fixed via guard ring
 
+---
+
 ### 3) Verification Status
-- DRC: PASS / FAIL / NOT CHECKED
-  - Main violations (if FAIL):
-- LVS: PASS / FAIL / NOT PERFORMED
-  - Notes:
-- Other checks (ERC / manual sanity / clearance review):
+- **DRC:** NOT CHECKED
+  - Main violations (if FAIL): N/A (DRC not executed yet)
+- **LVS:** NOT PERFORMED
+  - Notes: Layout-only exploratory run
+- **Other checks:**
+  - Manual visual sanity check completed (layer intent confirmed)
+  - HV spacing not yet evaluated by rule deck
+
+---
 
 ### 4) Observations
-- Critical layout constraints discovered:
-- Unexpected rule interactions:
-- Area-dominating structures:
-- Repeatability / tiling issues:
+- **Critical layout constraints discovered:**
+  - None from rule checking at this stage (DRC pending)
+- **Unexpected rule interactions:**
+  - N/A
+- **Area-dominating structures:**
+  - P+ guard ring visibly dominates cell outer boundary
+  - Poly gate extension intentionally aggressive for HV probing
+- **Repeatability / tiling issues:**
+  - Single-cell probe only; array tiling not evaluated in this Run
+
+---
 
 ### 5) Decisions
-- Accepted compromises:
-- Rejected options:
-- Rationale (why this was chosen):
+- **Accepted compromises:**
+  - Intentionally undersized guard spacing to provoke HV DRC violations
+  - Oversimplified source/drain and metal geometry
+- **Rejected options:**
+  - Immediate DRC-clean optimization (deferred)
+- **Rationale:**
+  - Primary goal of Run 001 is identification of dominant HV physical constraints,
+    not DRC closure
+
+---
 
 ### 6) Conclusion
-- Structurally acceptable as HV_SW_UNIT: Yes / No
-- Arrayable without modification: Yes / No
-- Recommended next action:
-  - Revise within same Run (minor) / Start next Run (major)
-  - What to test next (DRC focus / pitch focus / guard focus etc.)
+- **Structurally acceptable as HV_SW_UNIT:** Not evaluated (DRC pending)
+- **Arrayable without modification:** Not evaluated
+- **Recommended next action:**
+  - Execute GF180 HV DRC and identify dominant violation category
+  - Decide whether next step is:
+    - Run 001 continuation (minor geometry tuning), or
+    - Run 002 start (guard / pitch / gate strategy change)
+
+---
 
 ### 7) Artifacts
-- GDS filename:
-- Screenshots (paths):
-- Notes for reproducibility (commands / settings / key parameters):
+- **GDS filename:**
+  - `layout/hv_nmos_gr/gds/hv_sw_unit_run001_probe.gds`
+- **Screenshots (paths):**
+  - `docs/images/07_hv_sw_unit_run001_probe_gds.png`
+- **Notes for reproducibility:**
+  - Generated via KLayout Python macro  
+    `layout/hv_nmos_gr/klayout/hv_sw_unit_run001_probe.py`
+  - Database unit: 1 nm (`layout.dbu = 0.001`)
+  - Geometry intentionally violates expected HV spacing rules
 
 ---
 
