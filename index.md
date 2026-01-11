@@ -98,7 +98,11 @@ This repository serves as a sandbox for that purpose.
 - 🧩 **GDS targets identified (device- and structure-level)**
 
 This project has completed the evaluation of automated digital design flows
-and is transitioning to **layout-centric exploration** using GF180MCU.
+and has transitioned to **layout-centric exploration** using GF180MCU.
+
+No attempt is made to converge toward a production-ready IC;
+the outcome of this repository is the **identification of feasible
+and infeasible design regions at the GDS level**.
 
 ---
 
