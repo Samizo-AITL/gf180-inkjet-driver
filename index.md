@@ -1,6 +1,6 @@
 ---
-title: "gf180-inkjet-driver"
-description: "Minimal inkjet printhead driver IC exploration"
+layout: default
+title: gf180-inkjet-driver
 ---
 
 # gf180-inkjet-driver
