@@ -12,8 +12,10 @@ The documents focus on **architecture definition**, **high-voltage device usage*
 and **layout-driven mixed-signal design**, with the explicit goal of
 supporting **manual GDS generation** using the GF180MCU open PDK.
 
-These materials are intended to function as **design rationale and
-layout justification**, rather than as a complete IC specification.
+These materials function as **design rationale and layout justification**.
+In addition to documenting viable structures, they explicitly record
+**architectural limits identified through GDS-level exploration**,
+rather than serving as a complete IC specification.
 
 ---
 
@@ -31,7 +33,7 @@ layout justification**, rather than as a complete IC specification.
 flowchart LR
   A[docs/ : GDS-oriented design notes] --> B[Core Architecture Docs]
   A --> C[HV Layout Rule Chain]
-  A --> D[Status / Next Step]
+  A --> D[Status / Outcome]
 
   B --> B1[architecture.md\nSystem partitioning / floorplanning]
   B --> B2[hv-devices.md\nHV MOS options & layout constraints]
@@ -47,9 +49,9 @@ flowchart LR
   C --> C6[HV_SW_UNIT_IV_Expectations.md\nV–I sanity checks]
   C --> C7[HV_SW_UNIT_400dpi_Pitch_Analysis.md\n~63.5 µm pitch limit]
 
-  D --> D1[Digital flow feasibility: done]
-  D --> D2[Manual HV layout exploration]
-  D --> D3[Next: single HV MOS → switch cell]
+  D --> D1[Digital flow feasibility: completed]
+  D --> D2[Manual HV layout exploration: completed]
+  D --> D3[400 dpi array feasibility: evaluated and concluded]
 ```
 
 ---
@@ -71,7 +73,8 @@ It demonstrates:
   width="80%"
 />
 
-This GDS serves as a **visual anchor** for the documents listed below.
+This GDS serves as a **visual anchor**
+for the unit- and array-level documents listed below.
 
 ---
 
@@ -101,26 +104,16 @@ influences layout decisions.
 - **driver-topology.md**  
   Minimal inkjet driver stage concepts focused on
   **layout feasibility rather than schematic completeness**.
-  Intended GDS targets include:
-  - One-channel driver layout blocks
-  - HV routing patterns toward actuator loads
-  - Logic-to-HV signal handoff structures
 
 - **layout-notes.md**  
   Practical layout observations derived from GF180MCU rules and
   mixed-signal constraints, including:
-  - Spacing strategies for high-voltage nets
   - Guard ring placement and continuity
   - Substrate noise awareness and mitigation
 
-  This document serves as a **direct reference during manual layout work**.
-
 - **roadmap.md**  
-  A stepwise exploration plan describing the transition from
-  architectural concepts to **actual GDS artifacts**, including:
-  - Device-level GDS milestones
-  - Isolation and pad structure studies
-  - Incremental expansion toward multi-channel layouts
+  A stepwise exploration plan documenting the transition from
+  architectural concepts to **actual GDS artifacts**.
 
 ---
 
@@ -128,54 +121,32 @@ influences layout decisions.
 
 The following documents define a **complete, layout-first rule chain**
 for high-voltage MOS usage in inkjet driver ICs.
-They are intended to be read **in order**, and together form the
-design backbone for manual GDS generation.
+They are intended to be read **in order**.
 
 - **DesignRules_HV.md**  
-  Top-level **HV layout design rules** defining:
-  - Power domain separation (LV / IO / HV)
-  - Allowed device classes (10 V LDMOS)
-  - Guard ring and DNWELL policies
-  - Conservative layout philosophy for PoC designs
+  HV domain separation, device classes, DNWELL and guard ring policy
 
 - **HV_SW_UNIT_Definition.md**  
-  Definition of the **HV_SW_UNIT**, the minimum scalable
-  high-voltage switch cell:
-  - Unit-based current scaling concept
-  - Replication-first design strategy
-  - Explicit exclusion of density optimization in v0.x
+  Definition of the minimum scalable HV switch unit
 
 - **HV_SW_UNIT_Floorplan.md**  
-  Physical **floorplan structure** of the HV_SW_UNIT, including:
-  - DNWELL enclosure strategy
-  - Guard ring placement and continuity
-  - Source / drain / gate orientation rules
-  - Tiling behavior expectations
+  DNWELL enclosure and guard ring continuity rules
 
 - **HV_SW_UNIT_LW_Proposal.md**  
-  Tentative **channel length (L) and width (W)** proposal for
-  initial PoC layouts:
-  - Long-channel, conservative sizing
-  - Unit-width definition
-  - Finger-based implementation guidance
+  Conservative channel length and width assumptions
 
 - **HV_SW_UNIT_Layout_Checklist.md**  
-  A **step-by-step checklist** for actual layout work:
-  - What to place first (and what not to)
-  - Common failure modes in HV layouts
-  - Pre-DRC and post-DRC sanity checks
+  Practical checklist for manual HV layout execution
 
 - **HV_SW_UNIT_IV_Expectations.md**  
-  Pre-SPICE **V–I (Id–Vd / Id–Vg) expectation framework**:
-  - Shape-based sanity checks
-  - Early detection of layout or connectivity errors
-  - Replication consistency expectations
+  Pre-SPICE V–I (Id–Vd / Id–Vg) sanity expectations
 
 - **HV_SW_UNIT_400dpi_Pitch_Analysis.md**  
-  Feasibility analysis toward **400 dpi nozzle pitch (~63.5 µm)**:
-  - Reverse pitch calculation
-  - Identification of structural bottlenecks
-  - Architectural implications beyond v0.x rules
+  Feasibility study for **400 dpi nozzle pitch (~63.5 µm)**
+
+Together, these documents capture both
+**feasible layout structures** and
+**architectural limits identified at the GDS level**.
 
 ---
 
@@ -186,23 +157,19 @@ This documentation prioritizes:
 - **Layout-first decision making**
 - GDS-level understanding over schematic or RTL completeness
 - Minimal structures that can be **directly translated into layout**
-- Educational clarity grounded in **actual physical constraints**
+- Explicit recording of **why certain approaches fail**
 
 The intent is not to demonstrate a finished inkjet driver IC,
-but to document **how and why specific layout decisions are made**
-when designing high-voltage, mixed-signal ICs using an open PDK.
+but to preserve **design reasoning grounded in physical layout reality**.
 
 ---
 
 ## Status
 
 - ✅ Automated digital flow feasibility evaluation completed
-- 📐 Manual, layout-centric exploration phase (HV-focused)
-- 🧩 GDS targets defined at the **device and structure level**
-
-Individual documents may reference incomplete circuits or
-partial topologies; this is intentional and reflects the
-layout-driven nature of the exploration.
+- ✅ Manual HV device and unit layout completed
+- ✅ HV_SW_UNIT array and guard ring sharing studies completed
+- ❌ 400 dpi (63.5 µm) array feasibility: **structurally infeasible under GF180 DNWELL assumptions**
 
 ---
 
@@ -225,8 +192,15 @@ reliability, or suitability for any commercial application.
 
 ---
 
-## Next Step
+## Outcome
 
-- Single **HV MOS device layout** generation using KLayout
-- Guard ring and isolation structure comparison
-- Transition toward **minimum viable inkjet driver cell**
+This repository documents a **complete layout-driven exploration loop**:
+
+- Single HV MOS device  
+- → HV switch unit  
+- → Array construction  
+- → Guard ring sharing  
+- → **Architectural feasibility conclusion**
+
+The recorded artifacts ensure that
+future work does not repeat the same infeasible design path.
