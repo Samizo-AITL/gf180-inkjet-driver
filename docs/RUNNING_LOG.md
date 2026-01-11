@@ -272,6 +272,63 @@ Status meaning:
 
 ---
 
+## Run 004 (Planned)
+
+### 1) Identification
+- **Run ID:** 004
+- **Date:** 2026-01-12
+- **Designer:** Shinichi Mitsumizo
+- **Tool:** KLayout 0.30.x (Windows)
+- **PDK / Rule Deck version:** GF180MCU Open PDK (manual-rule driven)
+
+---
+
+### 2) Layout Conditions
+- **Target Object:** HV_SW_UNIT (use Run 003 geometry as-is)
+- **Device Type:** HV NMOS (same primitive)
+- **Nominal Max Voltage V (V):** 80 V
+- **Nominal Current I (A):** Not specified
+- **Array Direction (X / Y):** X
+- **Guard Ring Structure:** Shared outer guard (same as Run 002/003)
+- **Power Strategy:** Same as Run 001–003 (held constant)
+
+---
+
+### 3) Planned Change (Single Knob Only)
+- **X-direction tiling (array placement) + pitch measurement**
+  - Replicate **HV_SW_UNIT_RUN003** cell in X (e.g., N=3 or N=5)
+  - No geometry edits inside the unit cell (poly/active/metal unchanged)
+  - Objective: Determine whether pitch is limited by **poly end** or **metal stubs / enclosure**
+
+---
+
+### 4) Success Criteria (Manual)
+- Clean X-direction tiling without geometry overlap (visual + ruler)
+- Extract measurable **minimum safe pitch** in µm
+- Identify the first collision / hotspot class:
+  - Poly↔Poly / Poly↔Active
+  - M1 stub↔neighbor
+  - Guard-related boundary (should be non-dominant)
+
+---
+
+### 5) Planned Artifacts
+- **Python macro:** `layout/hv_nmos_gr/klayout/hv_sw_unit_run004_x_tiling_eval.py`
+- **GDS:** `layout/hv_nmos_gr/gds/hv_sw_unit_run004_x_tiling_eval.gds`
+- **Screenshot:** `docs/images/10_hv_sw_unit_run004_x_tiling_eval_gds.png`
+
+---
+
+### 6) Expected Outcomes (Decision Gates)
+- If pitch improves vs Run 002 and is set by poly spacing:
+  - Confirm **poly end** was dominant (Run 003 success)
+  - Next knob: metal stub minimization (Run 005)
+- If pitch unchanged and set by M1 stub / contact enclosure:
+  - Confirm **metal side protrusions** dominate
+  - Next knob: M1 stub isolation (Run 005 = metal-only change)
+
+---
+
 ## Revision Notes (Meta-Changes to This Log)
 
 | Rev | Date       | Change                                                        | Rationale |
