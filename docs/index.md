@@ -228,7 +228,7 @@ structurally consistent solution** under GF180MCU HV and DNWELL rules.
   - ✅ GDS successfully generated and verified in KLayout
 
 <img
-  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/06_hv_sw_unit_array_gr_shared_30dpi.png"
+  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/06_hv_sw_unit_array_gr_shared_300dpi.png"
   alt="HV_SW_UNIT Array – 300 dpi Guard-Ring-Shared Implementation"
   width="80%"
 />
