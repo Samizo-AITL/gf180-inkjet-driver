@@ -158,21 +158,6 @@ It demonstrates:
 
 ---
 
-## 📍 Where to Go Next
-
-To dive into **layout-driven exploration**, start here:
-
-- 📐 Architecture & layout rationale  
-  👉 [Architecture](./docs/architecture.md)
-
-- ⚡ High-voltage MOS devices and constraints  
-  👉 [HV Devices](./docs/hv-devices.md)
-
-- 🧱 Layout notes and guard ring considerations  
-  👉 [Layout Notes](./docs/layout-notes.md)
-
----
-
 ## 👤 Author
 
 | 📌 Item | Details |
