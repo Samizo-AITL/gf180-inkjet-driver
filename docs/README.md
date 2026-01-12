@@ -43,7 +43,7 @@ executed and observed at the GDS level.
   Records every Run, decision, observation, and conclusion in chronological order.
 
 - **GDS Screenshot Index**  
-  👉 [docs/images/index.md](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/images/)  
+  👉 [docs/images/index.md](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/images/index.html)  
   Complete visual index of all KLayout screenshots (PNG) corresponding to each Run and layout milestone.
 
 ---
