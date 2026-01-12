@@ -22,11 +22,16 @@ rather than serving as a complete IC specification.
 
 ---
 
-## Canonical Documents
+# gf180-inkjet-driver Documentation
 
-- Architecture: ARCHITECTURE.md
-- Exploration Log: RUNNING_LOG.md
-- 
+This documentation is organized by **design phase and intent**.
+
+- architecture/: frozen physical architectures
+- logs/: execution records (single source of truth)
+- unit/: HV_SW_UNIT design materials
+- rules/: process and layout constraints
+- images/: GDS screenshots and visual evidence
+
 ---
 
 ## 📒 Execution & Visual Logs
