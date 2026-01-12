@@ -22,6 +22,13 @@ rather than serving as a complete IC specification.
 
 ---
 
+## Canonical Documents
+
+- Architecture: ARCHITECTURE.md
+- Exploration Log: RUNNING_LOG.md
+- 
+---
+
 ## 📒 Execution & Visual Logs
 
 These links provide the **ground truth record** of what was actually
