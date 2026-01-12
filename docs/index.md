@@ -27,6 +27,17 @@ rather than serving as a complete IC specification.
 
 ---
 
+# gf180-inkjet-driver Documentation
+
+This documentation is organized by **design phase and intent**.
+
+- architecture/: frozen physical architectures
+- logs/: execution records (single source of truth)
+- unit/: HV_SW_UNIT design materials
+- rules/: process and layout constraints
+- images/: GDS screenshots and visual evidence
+
+---
 ## 📒 Execution & Visual Logs
 
 These links provide the **ground truth record** of what was actually
