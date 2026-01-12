@@ -64,27 +64,24 @@ executed and observed at the GDS level.
 
 ```mermaid
 flowchart LR
-  A[docs/ : GDS-oriented design notes] --> B[Core Architecture Docs]
-  A --> C[HV Layout Rule Chain]
-  A --> D[Status / Outcome]
+  A[docs/] --> B[architecture/]
+  A --> C[logs/]
+  A --> D[unit/]
+  A --> E[rules/]
+  A --> F[images/]
 
-  B --> B1[architecture.md\nSystem partitioning / floorplanning]
-  B --> B2[hv-devices.md\nHV MOS options & layout constraints]
-  B --> B3[driver-topology.md\nLayout-feasible driver blocks]
-  B --> B4[layout-notes.md\nGuard ring / spacing / substrate]
-  B --> B5[roadmap.md\nPath toward actual GDS]
+  B --> B1[ARCHITECTURE.md]
+  B --> B2[ARRAY_ARCH_300DPI_V1.md]
+  B --> B3[ARRAY_REFERENCE_ARTIFACT_300DPI_V1.md]
 
-  C --> C1[DesignRules_HV.md\nHV domain & isolation rules]
-  C --> C2[HV_SW_UNIT_Definition.md\nMinimum scalable HV cell]
-  C --> C3[HV_SW_UNIT_Floorplan.md\nDNWELL & GR continuity]
-  C --> C4[HV_SW_UNIT_LW_Proposal.md\nConservative L/W sizing]
-  C --> C5[HV_SW_UNIT_Layout_Checklist.md\nActual layout order]
-  C --> C6[HV_SW_UNIT_IV_Expectations.md\nV–I sanity checks]
-  C --> C7[HV_SW_UNIT_400dpi_Pitch_Analysis.md\n~63.5 µm pitch limit]
+  C --> C1[RUNNING_LOG.md]
 
-  D --> D1[Digital flow feasibility: completed]
-  D --> D2[Manual HV layout exploration: completed]
-  D --> D3[400 dpi array feasibility: evaluated and concluded]
+  D --> D1[HV_SW_UNIT_Definition.md]
+  D --> D2[HV_SW_UNIT_Floorplan.md]
+  D --> D3[HV_SW_UNIT_Layout_Checklist.md]
+
+  E --> E1[DesignRules_HV.md]
+  E --> E2[HV_SW_UNIT_400dpi_Pitch_Analysis.md]
 ```
 
 ---
@@ -167,46 +164,25 @@ Each document in this directory is written with a **clear downstream GDS target*
 in mind. Conceptual discussion is intentionally limited to what directly
 influences layout decisions.
 
-### Core Architecture Documents
+### Architecture (Frozen)
 
-- **architecture.md**  
-  System-level partitioning and block definition for
-  **manual layout boundaries**, with emphasis on:
-  - High-voltage domain separation
-  - Logic vs HV interaction points
-  - Floorplanning implications for mixed-signal ICs
+- docs/architecture/ARCHITECTURE.md
+- docs/architecture/ARRAY_ARCH_300DPI_V1.md
+- docs/architecture/ARRAY_REFERENCE_ARTIFACT_300DPI_V1.md
 
-- **hv-devices.md**  
-  High-voltage MOS devices available in GF180MCU and their
-  layout-related constraints.
+### Unit-Level Design Materials
 
-- **driver-topology.md**  
-  Minimal inkjet driver stage concepts focused on
-  **layout feasibility rather than schematic completeness**.
+- docs/unit/HV_SW_UNIT_Definition.md
+- docs/unit/HV_SW_UNIT_Floorplan.md
+- docs/unit/HV_SW_UNIT_LW_Proposal.md
+- docs/unit/HV_SW_UNIT_Layout_Checklist.md
+- docs/unit/HV_SW_UNIT_IV_Expectations.md
+- docs/unit/hv-devices.md
 
-- **layout-notes.md**  
-  Practical layout observations derived from GF180MCU rules and
-  mixed-signal constraints.
+### Rules and Constraints
 
-- **roadmap.md**  
-  A stepwise exploration plan documenting the transition from
-  architectural concepts to **actual GDS artifacts**.
-
----
-
-## High-Voltage Layout Rule Set (Inkjet-Focused)
-
-- **DesignRules_HV.md**
-- **HV_SW_UNIT_Definition.md**
-- **HV_SW_UNIT_Floorplan.md**
-- **HV_SW_UNIT_LW_Proposal.md**
-- **HV_SW_UNIT_Layout_Checklist.md**
-- **HV_SW_UNIT_IV_Expectations.md**
-- **HV_SW_UNIT_400dpi_Pitch_Analysis.md**
-
-Together, these documents capture both
-**feasible layout structures**
-and **architectural limits identified at the GDS level**.
+- docs/rules/DesignRules_HV.md
+- docs/rules/HV_SW_UNIT_400dpi_Pitch_Analysis.md
 
 ---
 
