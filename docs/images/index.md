@@ -105,7 +105,7 @@ This index exists purely to make visual inspection easy.
 
 - Metal1 stub trim, 12 µm pitch
 
-<img src="14_hv_sw_unit_run005_m1_stub_trim_14um_gds.png" width="80%" />
+<img src="14_hv_sw_unit_run005_m1_stub_trim_14um.gds.png" width="80%" />
 
 - Metal1 stub trim, 14 µm pitch
 
