@@ -27,7 +27,7 @@ rather than serving as a complete IC specification.
 
 ---
 
-# gf180-inkjet-driver Documentation
+## gf180-inkjet-driver Documentation
 
 This documentation is organized by **design phase and intent**.
 
