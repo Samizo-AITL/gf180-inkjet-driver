@@ -35,7 +35,7 @@ These links provide the **ground truth record** of what was actually
 executed and observed at the GDS level.
 
 - **RUNNING LOG (Single Source of Truth)**  
-  👉 [docs/logs/30_runs/RUNNING_LOG.md](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/30_runs/RUNNING_LOG.md)  
+  👉 [docs/logs/30_runs/RUNNING_LOG.md](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/logs/30_runs/RUNNING_LOG.md)  
   Records every Run, decision, observation, and conclusion in chronological order.
 
 - **GDS Screenshot Index**  
