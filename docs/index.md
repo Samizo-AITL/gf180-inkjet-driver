@@ -54,10 +54,10 @@ These links provide the **authoritative record** of what was actually
 *executed, observed, and concluded* at the GDS level.
 
 - 🧾 **RUNNING LOG — Single Source of Truth**  
-  👉 [docs/logs/30_runs/RUNNING_LOG.md](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/logs/30_runs/RUNNING_LOG.md)
+  👉 [RUNNING_LOG.md](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/logs/30_runs/RUNNING_LOG.html)
 
 - 🖼 **GDS Screenshot Index**  
-  👉 [docs/images/](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/images/)
+  👉 [GDS Images Index](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/)
 
 ---
 
