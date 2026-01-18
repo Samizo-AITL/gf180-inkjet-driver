@@ -1,6 +1,6 @@
 ---
-title: "GDS Screenshot Index"
-description: "Index of GDS screenshots generated during gf180-inkjet-driver layout exploration"
+title: "gf180-inkjet-driver"
+description: "layout- and GDS-oriented design notes"
 ---
 
 # GDS Screenshot Index
