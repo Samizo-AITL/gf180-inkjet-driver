@@ -1,21 +1,30 @@
 ---
 title: "gf180-inkjet-driver"
-description: "layout and GDS-oriented design notes"
+description: "layout- and GDS-oriented design notes"
 ---
 
-# Documentation – gf180-inkjet-driver
+# 📘 Documentation – gf180-inkjet-driver
 
-This directory contains **layout- and GDS-oriented design notes**
-for the **GF180-based inkjet printhead driver IC exploration**.
+This directory contains **layout- and GDS-oriented design notes** for the  
+**GF180-based inkjet printhead driver IC exploration**.
 
-The documents focus on **architecture definition**, **high-voltage device usage**,
-and **layout-driven mixed-signal design**, with the explicit goal of
-supporting **manual GDS generation** using the GF180MCU open PDK.
+These documents focus on:
 
-These materials function as **design rationale and layout justification**.
-In addition to documenting viable structures, they explicitly record
-**architectural limits identified through GDS-level exploration**,
-rather than serving as a complete IC specification.
+- 🧱 **Architecture definition**
+- ⚡ **High-voltage device usage**
+- 🧭 **Layout-driven mixed-signal design**
+
+with the explicit goal of supporting **manual GDS generation** using the  
+**GF180MCU Open PDK**.
+
+Rather than serving as a complete IC specification, these materials function as:
+
+- 📐 **Design rationale**
+- 🧾 **Layout justification**
+- 🧪 **Recorded architectural limits discovered at the GDS level**
+
+Both *successful structures* and *explicitly failed approaches* are preserved,
+grounded in **what was physically drawable and verifiable in GDS**.
 
 ---
 
@@ -27,40 +36,39 @@ rather than serving as a complete IC specification.
 
 ---
 
-## gf180-inkjet-driver Documentation
+## 🗂 Documentation Structure
 
-This documentation is organized by **design phase and intent**.
+This documentation is organized by **design phase and intent**:
 
-- architecture/: frozen physical architectures
-- logs/: execution records (single source of truth)
-- unit/: HV_SW_UNIT design materials
-- rules/: process and layout constraints
-- images/: GDS screenshots and visual evidence
+- **architecture/** : frozen physical architectures
+- **logs/** : execution records (*single source of truth*)
+- **unit/** : HV_SW_UNIT design materials
+- **rules/** : process and layout constraints
+- **images/** : GDS screenshots and visual evidence
 
 ---
-## 📒 Execution & Visual Logs
 
-These links provide the **ground truth record** of what was actually
-executed and observed at the GDS level.
+## 📒 Execution & Visual Logs (Ground Truth)
 
-- **RUNNING LOG (Single Source of Truth)**  
-  👉 [docs/logs/30_runs/RUNNING_LOG.md](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/logs/30_runs/RUNNING_LOG.md)  
-  Records every Run, decision, observation, and conclusion in chronological order.
+These links provide the **authoritative record** of what was actually
+*executed, observed, and concluded* at the GDS level.
 
-- **GDS Screenshot Index**  
-  👉 [docs/images/index.md](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/images/)  
-  Complete visual index of all KLayout screenshots (PNG) corresponding to each Run and layout milestone.
+- 🧾 **RUNNING LOG — Single Source of Truth**  
+  👉 [docs/logs/30_runs/RUNNING_LOG.md](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/logs/30_runs/RUNNING_LOG.md)
+
+- 🖼 **GDS Screenshot Index**  
+  👉 [docs/images/](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/images/)
 
 ---
 
 ## 🗺 Layout Map (GDS-Oriented Overview)
 
-> 📌 **Mermaid rendering note**  
-> This diagram is written in Mermaid syntax and is rendered correctly on GitHub.  
+> 📌 **Mermaid Rendering Note**  
+> This diagram is written in Mermaid syntax and renders correctly on GitHub.  
 > GitHub Pages does not render Mermaid diagrams by default.
 >
-> 👉 Please view the rendered diagram on GitHub:  
-[View on GitHub (docs/index.md)](https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/index.md)
+> 👉 View the rendered diagram on GitHub:  
+> https://github.com/Samizo-AITL/gf180-inkjet-driver/blob/main/docs/index.md
 
 ```mermaid
 flowchart LR
@@ -86,205 +94,154 @@ flowchart LR
 
 ---
 
-## Representative GDS Artifact
+## 🧱 Representative GDS Artifact
 
-The following image shows a **representative HV switch unit GDS**
-generated during this exploration.
+The image below shows a **representative HV switch unit GDS** generated during
+this exploration.
 
 It demonstrates:
-- DNWELL enclosure
-- Continuous P+ guard ring
-- Central HV device structure
-- Explicit D / G / S / B pin exposure
 
-<img
-  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/02_hv_sw_unit_gds.png"
-  alt="HV_SW_UNIT – DNWELL and Guard Ring GDS"
-  width="80%"
-/>
+- 🟩 DNWELL enclosure  
+- 🔁 Continuous P+ guard ring  
+- ⚡ Central HV device structure  
+- 📍 Explicit D / G / S / B pin exposure  
 
-This GDS serves as a **visual anchor**
-for the unit- and array-level documents listed below.
+![HV_SW_UNIT – DNWELL and Guard Ring GDS](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/02_hv_sw_unit_gds.png)
 
 ---
 
-## Array Layout Evolution (400 dpi Study)
+## 🧩 Array Layout Evolution — 400 dpi Study
 
-The following snapshots document the **stepwise evolution**
-of the HV_SW_UNIT array toward **400 dpi pitch (63.5 µm)**.
-Each image corresponds to a concrete layout decision
-and captures the moment where a design assumption
-was either validated or rejected.
+The following snapshots document the **stepwise evolution** of the HV_SW_UNIT
+array toward **400 dpi pitch (63.5 µm)**.
 
-### Independent Unit Isolation (Baseline)
-
-<img
-  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/03_hv_unit_array_full_gds.png"
-  alt="HV_SW_UNIT Array – Independent DNWELL and Guard Ring"
-  width="80%"
-/>
-
-- DNWELL and guard ring are isolated per HV_SW_UNIT
-- Guard ring outer boundary dominates pitch
-- **400 dpi is clearly infeasible**
+Each image captures a concrete layout decision and marks the point where a
+design assumption was **validated or rejected** at the GDS level.
 
 ---
 
-### Column-wise Guard Ring Sharing
+### 🔹 Independent Unit Isolation (Baseline)
 
-<img
-  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/04_hv_sw_unit_array_gr_shared_FIXED_gds.png"
-  alt="HV_SW_UNIT Array – Column-wise Guard Ring Sharing"
-  width="80%"
-/>
+![HV_SW_UNIT Array – Independent DNWELL and Guard Ring](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/03_hv_unit_array_full_gds.png)
 
-- Guard ring redundancy reduced at array level
-- Pitch pressure partially relieved
-- Unit-level guard ring remnants still interfere
+- DNWELL and guard ring isolated per unit  
+- Guard ring outer boundary dominates pitch  
+- ❌ **400 dpi clearly infeasible**
 
 ---
 
-### Guard-Ring-Clean Shared Array (Final Check)
+### 🔹 Column-wise Guard Ring Sharing
 
-<img
-  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/05_hv_sw_unit_array_gr_shared_clean_gds.png"
-  alt="HV_SW_UNIT Array – Guard Ring Clean Shared Configuration"
-  width="80%"
-/>
+![HV_SW_UNIT Array – Column-wise Guard Ring Sharing](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/04_hv_sw_unit_array_gr_shared_FIXED_gds.png)
 
-- Unit-level guard rings completely removed
-- Guard ring no longer the dominant limiter
-- **DNWELL enclosure and spacing become decisive**
+- Guard ring redundancy reduced  
+- Partial pitch relief achieved  
+- Unit-level remnants still interfere  
 
 ---
 
-## Document Index (GDS-Oriented)
+### 🔹 Guard-Ring-Clean Shared Array (Final Check)
 
-Each document in this directory is written with a **clear downstream GDS target**
-in mind. Conceptual discussion is intentionally limited to what directly
-influences layout decisions.
+![HV_SW_UNIT Array – Guard Ring Clean Shared Configuration](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/05_hv_sw_unit_array_gr_shared_clean_gds.png)
 
-### Architecture (Frozen)
-
-- docs/architecture/ARCHITECTURE.md
-- docs/architecture/ARRAY_ARCH_300DPI_V1.md
-- docs/architecture/ARRAY_REFERENCE_ARTIFACT_300DPI_V1.md
-
-### Unit-Level Design Materials
-
-- docs/unit/HV_SW_UNIT_Definition.md
-- docs/unit/HV_SW_UNIT_Floorplan.md
-- docs/unit/HV_SW_UNIT_LW_Proposal.md
-- docs/unit/HV_SW_UNIT_Layout_Checklist.md
-- docs/unit/HV_SW_UNIT_IV_Expectations.md
-- docs/unit/hv-devices.md
-
-### Rules and Constraints
-
-- docs/rules/DesignRules_HV.md
-- docs/rules/HV_SW_UNIT_400dpi_Pitch_Analysis.md
+- Unit-level guard rings fully removed  
+- Guard ring no longer dominant  
+- ❌ DNWELL enclosure & spacing become decisive limiters  
 
 ---
 
-## Design Philosophy
+## 📚 Document Index (GDS-Oriented)
+
+All documents are written with a **clear downstream GDS target**.
+
+### 🧱 Architecture (Frozen)
+
+- docs/architecture/ARCHITECTURE.md  
+- docs/architecture/ARRAY_ARCH_300DPI_V1.md  
+- docs/architecture/ARRAY_REFERENCE_ARTIFACT_300DPI_V1.md  
+
+### ⚡ Unit-Level Design
+
+- docs/unit/HV_SW_UNIT_Definition.md  
+- docs/unit/HV_SW_UNIT_Floorplan.md  
+- docs/unit/HV_SW_UNIT_LW_Proposal.md  
+- docs/unit/HV_SW_UNIT_Layout_Checklist.md  
+- docs/unit/HV_SW_UNIT_IV_Expectations.md  
+- docs/unit/hv-devices.md  
+
+### 📏 Rules & Constraints
+
+- docs/rules/DesignRules_HV.md  
+- docs/rules/HV_SW_UNIT_400dpi_Pitch_Analysis.md  
+
+---
+
+## 🧠 Design Philosophy
 
 This documentation prioritizes:
 
-- **Layout-first decision making**
-- GDS-level understanding over schematic or RTL completeness
-- Minimal structures that can be **directly translated into layout**
-- Explicit recording of **why certain approaches fail**
+- 🧱 **Layout-first decision making**  
+- 🔬 GDS-level understanding over schematic or RTL completeness  
+- ✂ Minimal structures directly translatable into layout  
+- 📝 Explicit recording of **why certain approaches fail**  
 
-The intent is not to demonstrate a finished inkjet driver IC,
-but to preserve **design reasoning grounded in physical layout reality**.
-
----
-
-## Status
-
-- ✅ Automated digital flow feasibility evaluation completed
-- ✅ Manual HV device and unit layout completed
-- ✅ HV_SW_UNIT array and guard ring sharing studies completed
-- ❌ 400 dpi (63.5 µm) array feasibility: **structurally infeasible under GF180 DNWELL assumptions**
+The goal is not a finished inkjet driver IC, but the preservation of  
+**design reasoning grounded in physical layout reality**.
 
 ---
 
-## Rationale for NMOS-Based 4×2 Array Layout Check
+## 📊 Status
 
-Prior to fixing the 300 dpi configuration as the baseline array,
-a **4×2 NMOS-based HV switch array** was intentionally selected
-as the minimum verification structure for layout feasibility.
-
-This choice was made for the following reasons:
-
-- **Worst-case isolation constraints first**  
-  Under GF180MCU rules, **DNWELL enclosure, spacing, and guard-ring continuity**
-  dominate array pitch feasibility.
-  A low-side **NMOS-centered topology** represents the most demanding case
-  in terms of substrate noise isolation and DNWELL usage.
-  Verifying pitch feasibility under this condition establishes
-  a conservative physical baseline.
-
-- **Avoidance of edge-dominated artifacts**  
-  Single-unit or linear (1×N) layouts are strongly affected by
-  guard-ring termination and DNWELL boundary effects.
-  A **4×2 array** provides a central region that closely approximates
-  an infinite array, allowing realistic evaluation of
-  shared guard rings, well continuity, and routing congestion.
-
-- **Array-level sharing and repetition check**  
-  The 4×2 structure is the smallest block that simultaneously exposes:
-  guard-ring sharing effectiveness, DNWELL shape propagation,
-  power/ground rail continuity, and repeatability under tiling.
-
-For these reasons, the **NMOS-based 4×2 array** was used as the
-layout feasibility checkpoint.
-Once a **300 dpi pitch** was confirmed under this worst-case condition,
-the resulting configuration was promoted to the
-**baseline (golden) array** for subsequent exploration.
+- ✅ Automated digital flow feasibility evaluated  
+- ✅ Manual HV device & unit layout completed  
+- ✅ Array & guard-ring sharing studies completed  
+- ❌ 400 dpi (63.5 µm) feasibility: **structurally infeasible under GF180 DNWELL rules**
 
 ---
 
-## ✅ 300 dpi Array Implementation (Final Outcome)
+## 🧪 Why a 4×2 NMOS-Based Array Was Chosen
 
-Based on the GDS-level exploration documented above, a **300 dpi pitch
-(~85.0 µm)** configuration was selected as the **minimum viable and
-structurally consistent solution** under GF180MCU HV and DNWELL rules.
+Before fixing 300 dpi as the baseline, a **4×2 NMOS-based HV switch array**
+was selected as the **minimum feasibility checkpoint**.
+
+Reasons:
+
+- ⚠ **Worst-case isolation first**  
+- 🎯 **Avoid edge-dominated artifacts**  
+- 🔁 **Array-level repetition & sharing check**
+
+Once **300 dpi** was confirmed under this worst-case condition,
+it was promoted to the **baseline (golden) array**.
+
+---
+
+## ✅ 300 dpi Array — Final Outcome
+
+A **300 dpi pitch (~85.0 µm)** was selected as the **minimum viable and
+structurally consistent solution** under GF180MCU rules.
 
 ### Implemented Artifact
 
-- **Generator**
-  - `layout/hv_nmos_gr/klayout/hv_sw_unit_array_gr_shared_300dpi.py`
-- **Generated GDS**
-  - `layout/hv_nmos_gr/gds/hv_sw_unit_array_gr_shared_300dpi.gds`
-- **Pitch**
-  - 85.0 µm (300 dpi, margin included)
-- **Guard Ring Strategy**
-  - Column-wise shared P+ guard ring
-  - Unit-level guard rings removed
-- **Status**
-  - ✅ GDS successfully generated and verified in KLayout
+- 🛠 Generator  
+  `layout/hv_nmos_gr/klayout/hv_sw_unit_array_gr_shared_300dpi.py`
 
-<img
-  src="https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/06_hv_sw_unit_array_gr_shared_300dpi.png"
-  alt="HV_SW_UNIT Array – 300 dpi Guard-Ring-Shared Implementation"
-  width="80%"
-/>
+- 📦 Generated GDS  
+  `layout/hv_nmos_gr/gds/hv_sw_unit_array_gr_shared_300dpi.gds`
 
-### Conclusion
+- 📏 Pitch  
+  85.0 µm (300 dpi, margin included)
 
-While 400 dpi (63.5 µm) configurations fail due to unavoidable
-DNWELL enclosure and spacing constraints, the **300 dpi array
-represents a physically realizable layout point** for GF180-based
-inkjet driver exploration.
+- 🔁 Guard Ring Strategy  
+  Column-wise shared P+ guard ring, unit-level removed
 
-This configuration is treated as the **baseline (golden) array**
-for any subsequent device sizing, electrical evaluation,
-or architectural extension.
+- ✅ Status  
+  Verified in KLayout
+
+![HV_SW_UNIT Array – 300 dpi Guard-Ring-Shared Implementation](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/06_hv_sw_unit_array_gr_shared_300dpi.png)
 
 ---
 
-## Disclaimer
+## ⚠ Disclaimer
 
 This documentation is provided **for educational and exploratory purposes only**.
 
