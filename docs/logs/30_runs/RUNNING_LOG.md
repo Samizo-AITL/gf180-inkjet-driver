@@ -1,3 +1,8 @@
+---
+title: "gf180-inkjet-driver"
+description: "layout- and GDS-oriented design notes"
+---
+
 # RUNNING LOG (Production Phase)
 
 This document is the **single source of truth** for production-phase execution in this repository.  
