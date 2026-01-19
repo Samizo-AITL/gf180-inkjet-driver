@@ -6,17 +6,17 @@ This layout represents a **work-in-progress basic physical cell**
 for a **high-voltage CMOS inverter** intended for inkjet printhead drivers.
 
 This is **not a finished macro**.
-It is a **physically grounded architectural baseline** whose purpose is
-to make design assumptions and limitations explicit.
+It is a **physically grounded architectural baseline** used to make
+design assumptions, limitations, and next actions explicit.
 
 ---
 
 ## Evidence Layout Snapshot
 
-![HV Inverter 1ch Layout (Current State)](../images/15_hv_inv_1ch_260119.png)
+![HV Inverter 1ch Layout](/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
 
 **Figure 1 — Current HV Inverter 1ch layout (300dpi pitch)**  
-This snapshot is the *authoritative reference* for all statements in this document.
+This figure is the **authoritative evidence** for all statements in this document.
 
 ---
 
@@ -34,14 +34,13 @@ The cell is designed to be **horizontally tileable** and to serve as the
 
 ## Purpose
 
-This cell exists to:
+The purpose of this cell is **not tapeout readiness**, but to:
 
 - Establish a **stable geometric reference** for array construction
 - Visualize **HV-relevant physical layers**
-- Separate *what is already fixed* from *what is still undecided*
-- Act as a **design contract draft** between circuit, layout, and process
-
-It does **not** aim to be DRC/LVS clean at this stage.
+- Separate *what is fixed* from *what is still undefined*
+- Act as a **draft design contract** between
+  circuit, layout, and process domains
 
 ---
 
@@ -49,70 +48,20 @@ It does **not** aim to be DRC/LVS clean at this stage.
 
 | Pin   | Description |
 |------|-------------|
-| VIN  | Logic-level input (routing incomplete) |
-| VOUT | High-voltage output |
+| VIN  | Logic-level input (routing not finalized) |
+| VOUT | High-voltage output (center-aligned) |
 | VDDH | High-voltage supply |
 | VSSH | High-voltage ground |
 
-> The electrical realization of these pins is **not finalized**.
-> Their intent is shown, but pin shapes and LVS meaning are incomplete.
+> Electrical pin realization (pin layers, LVS intent)
+> is **not finalized** in the current layout.
 
 ---
 
-## Evidence of Key Design Decisions
+## Visible Physical Layers
 
-### 1. Single Geometric Reference (Cell Center)
-
-![VOUT Center Alignment](../images/15_hv_inv_1ch_260119.png)
-
-**Figure 2 — VOUT trunk aligned to cell center**
-
-- The vertical center line of the cell is used as the **sole geometric reference**
-- The **VOUT metal trunk is placed on this center line**
-- PMOS and NMOS drain regions are symmetrically aligned to this line
-
-This guarantees **horizontal arrayability without cumulative offset**.
-
----
-
-### 2. HV Asymmetry Without Cell Offset
-
-![Gate Shift and Drift Region](../images/15_hv_inv_1ch_260119.png)
-
-**Figure 3 — Gate offset and drain-side drift region**
-
-- Drain diffusion remains centered
-- The **gate is intentionally shifted to one side**
-- HV intent is expressed through:
-  - gate–drain spacing
-  - conceptual LDD / drift region
-
-The cell boundary itself remains symmetric and tile-safe.
-
----
-
-### 3. Explicit Physical Layer Visibility
-
-![Well and Diffusion Visibility](../images/15_hv_inv_1ch_260119.png)
-
-**Figure 4 — Wells, diffusions, and active regions explicitly visible**
-
-The layout intentionally exposes:
-
-- dnwell
-- nwell / pwell
-- n+ / p+ diffusions
-- poly gate
-- contacts
-- metal routing
-
-This avoids abstract “symbolic” layouts that hide HV behavior.
-
----
-
-## Visible Layers (Current)
-
-The following layers are explicitly included **for physical interpretability**:
+The layout explicitly exposes the following layers to preserve
+physical interpretability:
 
 - dnwell  
 - nwell / pwell  
@@ -123,13 +72,58 @@ The following layers are explicitly included **for physical interpretability**:
 - metal1  
 - cell boundary (bbox)
 
-> Layer usage is **conceptual** and not yet mapped 1:1 to final PDK definitions.
+These layers are shown **for understanding and discussion**,  
+not yet as exact PDK-compliant device definitions.
+
+---
+
+## Layout Design Principles
+
+### 1. Single Geometric Reference (Cell Center)
+
+![Center Alignment Evidence](/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
+
+**Figure 2 — VOUT trunk aligned to the cell center**
+
+- The **cell center line (xc)** is defined as the **VOUT trunk**
+- This vertical line is the **only global alignment reference**
+
+This guarantees:
+- no horizontal drift when cells are tiled
+- stable VOUT alignment across large arrays
+- predictable array-level routing
+
+---
+
+### 2. HV Asymmetry Without Cell Offset
+
+![Gate Shift and Drift Evidence](/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
+
+**Figure 3 — Gate shift and drain-side drift region**
+
+- Drain regions remain **centered on xc**
+- The **gate is intentionally shifted** to one side
+- HV intent is expressed by:
+  - gate–drain spacing
+  - conceptual drift / LDD regions
+
+Cell geometry itself remains symmetric and tile-safe.
+
+---
+
+### 3. Guard Ring Strategy (Not Final)
+
+- This 1ch cell includes **only minimal local structures**
+- Guard rings are assumed to be:
+  - implemented at the **array or top-cell level**
+  - shared across multiple channels
+- Substrate and well tie potentials are **not finalized**
 
 ---
 
 ## Arrayability
 
-- **Horizontal tiling**: Supported geometrically  
+- **Horizontal tiling**: Geometrically supported  
   - Fixed 300dpi pitch
   - Center-aligned VOUT
   - Fixed power rail positions
@@ -139,18 +133,18 @@ Electrical continuity in arrays is **not yet guaranteed**.
 
 ---
 
-## Known Incompleteness (By Design)
+## Known Incompleteness (Intentional)
 
-The following are **explicitly unfinished**:
+The following aspects are **explicitly unfinished**:
 
 - ❌ DRC compliance
 - ❌ LVS readiness
 - ❌ Final HV device layer mapping
-- ❌ VIN routing strategy
+- ❌ VIN routing definition
 - ❌ Guard ring electrical definition
 - ❌ Power distribution strategy
 
-These omissions are **intentional** at this stage.
+These are **design-stage omissions**, not oversights.
 
 ---
 
@@ -161,7 +155,7 @@ This 1ch unit will be considered *complete* only when:
 1. VIN / VOUT / VDDH / VSSH are electrically unambiguous
 2. HV NMOS/PMOS match real PDK device definitions
 3. Guard ring strategy (local vs shared) is fixed
-4. Horizontal arrays auto-form valid power and signal connectivity
+4. Horizontal arrays automatically form valid power and signal connectivity
 5. Top-level requirements are explicitly documented
 
 ---
@@ -170,15 +164,15 @@ This 1ch unit will be considered *complete* only when:
 
 ### Priority 1 — Interface Definition
 Define a formal **HV_INV_1CH Interface Definition**:
-- what the cell requires from the top level
-- what the cell guarantees to the array
+- what this cell requires from the top level
+- what it guarantees to the array
 
 ### Priority 2 — Array-Level Validation
 - Generate 10ch / 300ch arrays
 - Verify alignment, routing feasibility, and power integrity
 
 ### Priority 3 — Process Alignment
-- Map conceptual layers to GF180 PDK layers
+- Map conceptual layers to actual GF180 PDK layers
 - Introduce minimum DRC-aware dimensions
 
 ---
@@ -187,7 +181,7 @@ Define a formal **HV_INV_1CH Interface Definition**:
 
 This layout is **intentionally incomplete but physically honest**.
 
-The figures above serve as **evidence**, not decoration:
+The figures above are **evidence**, not decoration:
 they show exactly what is fixed, what is assumed, and what is missing.
 
 The next phase is not drawing more shapes,
