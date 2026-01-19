@@ -112,6 +112,12 @@ This index exists purely to make **visual inspection fast and unambiguous**.
 
 ---
 
+## HV Inverter 1ch Unit (300dpi)
+
+![HV Inverter 1ch Layout](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
+
+---
+
 ## 📝 Notes
 
 - 🖼 All images are **direct screenshots from KLayout**
