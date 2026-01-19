@@ -13,7 +13,7 @@ design assumptions, limitations, and next actions explicit.
 
 ## Evidence Layout Snapshot
 
-![HV Inverter 1ch Layout](/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
+![HV Inverter 1ch Layout](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
 
 **Figure 1 — Current HV Inverter 1ch layout (300dpi pitch)**  
 This figure is the **authoritative evidence** for all statements in this document.
@@ -81,7 +81,7 @@ not yet as exact PDK-compliant device definitions.
 
 ### 1. Single Geometric Reference (Cell Center)
 
-![Center Alignment Evidence](/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
+![Center Alignment Evidence](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
 
 **Figure 2 — VOUT trunk aligned to the cell center**
 
@@ -97,7 +97,7 @@ This guarantees:
 
 ### 2. HV Asymmetry Without Cell Offset
 
-![Gate Shift and Drift Evidence](/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
+![Gate Shift and Drift Evidence](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
 
 **Figure 3 — Gate shift and drain-side drift region**
 
