@@ -5,6 +5,8 @@ description: "Minimal inkjet printhead driver IC exploration"
 
 # 🧠 gf180-inkjet-driver
 
+[![Back to Portal (EN)](https://img.shields.io/badge/Back%20to%20Portal-0B5FFF?style=for-the-badge&logo=homeassistant&logoColor=white)](https://samizo-aitl.github.io/portal/en/)
+
 Minimal inkjet printhead driver IC exploration using the  
 **GF180MCU open PDK**, with a focus on:
 
