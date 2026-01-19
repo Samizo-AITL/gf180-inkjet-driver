@@ -236,6 +236,39 @@ structurally consistent solution** under GF180MCU rules.
 
 ---
 
+## 🔌 HV Inverter 1ch Unit (300 dpi) — WIP
+
+A **1-channel HV CMOS inverter basic cell** intended for
+**300 dpi inkjet driver arrays**.
+
+> Status: **INCOMPLETE / UNDER DEFINITION**  
+> This is a physically grounded baseline, not a tapeout-ready macro.
+
+### Evidence (GDS)
+
+![HV Inverter 1ch Layout](https://samizo-aitl.github.io/gf180-inkjet-driver/docs/images/15_hv_inv_1ch_260119.png)
+
+**Figure — HV Inverter 1ch basic cell @300 dpi**  
+This GDS snapshot is the **single source of truth** for the statements below.
+
+### Fixed Rules
+- **Cell center = VOUT trunk**
+- Horizontal tiling at **300 dpi** without cumulative offset
+- HV intent expressed by **gate offset + drain-side drift**, not cell shift
+
+### Shown Layers (Conceptual)
+dnwell / nwell / pwell / n+ / p+ / poly / contact / metal1 / bbox
+
+### Known Missing (Intentional)
+- Not DRC/LVS ready
+- VIN routing undefined
+- Guard ring & power strategy handled at top/array level
+
+### Docs
+- Unit: `docs/unit/hv_inv_1ch/README.md`
+
+---
+
 ## ⚠ Disclaimer
 
 This documentation is provided **for educational and exploratory purposes only**.
